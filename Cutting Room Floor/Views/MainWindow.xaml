@@ -1,0 +1,95 @@
+﻿<fluent:RibbonWindow x:Class="Xrf.Views.MainWindow"
+                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:wpfsvl="clr-namespace:WPFSoundVisualizationLib;assembly=WPFSoundVisualizationLib"
+                     xmlns:xceed="http://schemas.xceed.com/wpf/xaml/toolkit"
+                     xmlns:fluent="clr-namespace:Fluent;assembly=Fluent"
+                     xmlns:ad="http://schemas.xceed.com/wpf/xaml/avalondock"
+                     Title="Cutting Room Floor" Icon="../xrf.ico" WindowState="Maximized">
+    
+    <DockPanel LastChildFill="True">
+        <fluent:Ribbon DockPanel.Dock="Top">
+            <fluent:RibbonTabItem Header="Home" KeyTip="H">
+                <fluent:RibbonGroupBox Header="Project">
+                    <fluent:Button Header="Open Movie" KeyTip="O" LargeIcon="{StaticResource OpenMovieButtonLargeImage}" SizeDefinition="Large" Command="{Binding OpenMovieCommand}"/>
+                    <fluent:Button Header="Re-compile Movie" KeyTip="R" Icon="{StaticResource RecompileMovieButtonSmallImage}" SizeDefinition="Middle" IsEnabled="{Binding IsEditorReady}" />
+                    <fluent:Button Header="Clear Project" KeyTip="X" Icon="{StaticResource ClearProjectButtonSmallImage}" SizeDefinition="Middle" IsEnabled="{Binding IsEditorReady}" />
+                </fluent:RibbonGroupBox>
+                <fluent:RibbonGroupBox Header="Frame" KeyTip="F" IsEnabled="{Binding IsEditorReady}">
+                    <fluent:Button Header="-1 Frame" KeyTip="1" Icon="{StaticResource TimecodeBackButtonSmallImage}" SizeDefinition="Middle" />
+                    <fluent:Button Header="-10 Frames" KeyTip="2" Icon="{StaticResource TimecodeBackButtonSmallImage}" SizeDefinition="Middle" />
+                    <fluent:Button Header="-1 Second" KeyTip="3" Icon="{StaticResource TimecodeWayBackButtonSmallImage}" SizeDefinition="Middle" />
+                    <wpfsvl:DigitalClock Style="{DynamicResource DigitalClockStyle}" />
+                    <fluent:Button Header="+1 Frame" KeyTip="0" Icon="{StaticResource TimecodeForwardButtonSmallImage}" SizeDefinition="Middle" />
+                    <fluent:Button Header="+10 Frames" KeyTip="9" Icon="{StaticResource TimecodeForwardButtonSmallImage}" SizeDefinition="Middle" />
+                    <fluent:Button Header="+1 Second" KeyTip="8" Icon="{StaticResource TimecodeWayForwardButtonSmallImage}" SizeDefinition="Middle" />
+                    
+                    <Label Target="{Binding ElementName=TimecodeByTime}" Content="Jump to Time"/>
+                    <xceed:TimeSpanUpDown x:Name="TimecodeByTime" Margin="3"/>
+                    
+                    <Label Target="{Binding ElementName=TimecodeByFrame}" Content="Jump to Frame" />
+                    <xceed:IntegerUpDown x:Name="TimecodeByFrame" Margin="3" />
+                </fluent:RibbonGroupBox>
+            </fluent:RibbonTabItem>
+            
+            <fluent:RibbonTabItem Header="Frame" Group="{Binding ElementName=editGroup}">
+                
+            </fluent:RibbonTabItem>
+
+            <fluent:RibbonTabItem Header="Movie" Group="{Binding ElementName=editGroup}">
+
+            </fluent:RibbonTabItem>
+
+            <fluent:Ribbon.ContextualGroups>
+                <fluent:RibbonContextualTabGroup Header="Editor" Visibility="{Binding Path=IsEditorReady, Converter={StaticResource BoolToVis}}" x:Name="editGroup" Background="{DynamicResource MainAccentBrush}" BorderBrush="{DynamicResource SubAccentBrush}" />
+            </fluent:Ribbon.ContextualGroups>
+        </fluent:Ribbon>
+          
+        <fluent:StatusBar DockPanel.Dock="Bottom" Style="{DynamicResource StatusBarStyle}">
+            <fluent:StatusBarItem Title="Status" HorizontalAlignment="Left">
+                <Label Content="{Binding StatusText}" />
+            </fluent:StatusBarItem>
+            <fluent:StatusBarItem Title="Zoom Slider" HorizontalAlignment="Right">
+                <Slider x:Name="zoomSlider" Minimum="20" Maximum="500" IsDirectionReversed="False" Style="{DynamicResource ZoomSliderStyle}" Value="{Binding ZoomFactor, Mode=TwoWay, FallbackValue=100, TargetNullValue=100}"/>
+            </fluent:StatusBarItem>
+        </fluent:StatusBar>
+
+        <ad:DockingManager IsEnabled="{Binding IsEditorReady}" Foreground="#FF444444">
+            <ad:LayoutRoot>
+                
+                <ad:LayoutPanel Orientation="Vertical">
+                    <ad:LayoutPanel Orientation="Horizontal">
+                        <ad:LayoutDocumentPaneGroup x:Name="originalFrameDocumentGroup">
+                            <ad:LayoutDocumentPane>
+                                <ad:LayoutDocument Title="Original Frame">
+                                    <Image Source="{Binding CurrentFrame}" Stretch="None" />
+                                </ad:LayoutDocument>
+                            </ad:LayoutDocumentPane>
+                        </ad:LayoutDocumentPaneGroup>
+                        <ad:LayoutDocumentPaneGroup x:Name="editedFrameDocumentGroup">
+                            <ad:LayoutDocumentPane>
+                                <ad:LayoutDocument Title="Edited Frame">
+
+                                </ad:LayoutDocument>
+                            </ad:LayoutDocumentPane>
+                        </ad:LayoutDocumentPaneGroup>
+                        <ad:LayoutAnchorablePaneGroup x:Name="rightAnchorableGroup">
+                            <ad:LayoutAnchorablePane>
+                                <ad:LayoutAnchorable Title="Shader Gallery" CanAutoHide="True"  CanClose="True" CanHide="True">
+                                    
+                                </ad:LayoutAnchorable>
+                            </ad:LayoutAnchorablePane>
+                        </ad:LayoutAnchorablePaneGroup>
+                    </ad:LayoutPanel>
+                    <ad:LayoutAnchorablePaneGroup x:Name="bottomAnchorableGroup">
+                        <ad:LayoutAnchorablePane>
+                            <ad:LayoutAnchorable Title="Timeline" CanAutoHide="True"  CanClose="True" CanHide="True">
+                                <xceed:TimelinePanel />
+                            </ad:LayoutAnchorable>
+                        </ad:LayoutAnchorablePane>
+                    </ad:LayoutAnchorablePaneGroup>
+                </ad:LayoutPanel>
+            </ad:LayoutRoot>
+        </ad:DockingManager>
+    </DockPanel>
+</fluent:RibbonWindow>
