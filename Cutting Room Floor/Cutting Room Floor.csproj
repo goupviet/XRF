@@ -134,6 +134,7 @@
     <Compile Include="Imaging\Filters\Substitution\ColorSubstitutionFilter.cs" />
     <Compile Include="Imaging\Filters\Substitution\SubstitutionIO.cs" />
     <Compile Include="Logging\Log.cs" />
+    <Compile Include="ViewModels\CommandHandler.cs" />
     <Compile Include="Views\SplashWindow.xaml.cs">
       <DependentUpon>SplashWindow.xaml</DependentUpon>
     </Compile>
@@ -245,6 +246,11 @@
     <Resource Include="Theme\Images\Small\WayForward.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Theme\Images\Large\Greyscale.png" />
+    <Resource Include="Theme\Images\Large\ImageIcon.png" />
+    <Resource Include="Theme\Images\Large\Negative.png" />
+    <Resource Include="Theme\Images\Large\Sepia.png" />
+    <Resource Include="Theme\Images\Large\Transparency.png" />
     <Resource Include="Theme\Images\Logos\Icon.png" />
     <Resource Include="Theme\Images\Logos\XRF.png" />
     <Resource Include="Theme\Images\Tiles\skulls.png" />

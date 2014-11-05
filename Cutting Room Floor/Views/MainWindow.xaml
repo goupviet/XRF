@@ -1,12 +1,13 @@
 ﻿<fluent:RibbonWindow x:Class="Xrf.Views.MainWindow"
                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:filter="clr-namespace:Xrf.Imaging.Filters"
                      xmlns:wpfsvl="clr-namespace:WPFSoundVisualizationLib;assembly=WPFSoundVisualizationLib"
                      xmlns:xceed="http://schemas.xceed.com/wpf/xaml/toolkit"
                      xmlns:fluent="clr-namespace:Fluent;assembly=Fluent"
                      xmlns:ad="http://schemas.xceed.com/wpf/xaml/avalondock"
                      Width="1366" Height="768"
-                     Title="Cutting Room Floor" Icon="../xrf.ico" WindowState="Maximized" Style="{DynamicResource RibbonWindowStyle}">
+                     Title="Cutting Room Floor" Icon="../xrf.ico" WindowState="Maximized">
     
     <DockPanel LastChildFill="True">
         <fluent:Ribbon DockPanel.Dock="Top">
@@ -34,16 +35,46 @@
             </fluent:RibbonTabItem>
             
             <fluent:RibbonTabItem Header="Frame" Group="{Binding ElementName=editGroup}">
-                
-            </fluent:RibbonTabItem>
-
-            <fluent:RibbonTabItem Header="Movie" Group="{Binding ElementName=editGroup}">
-
+                <fluent:RibbonGroupBox Header="Painting">
+                    <fluent:Button Header="Open With" KeyTip="S" SizeDefinition="Large" />
+                </fluent:RibbonGroupBox>
+                <fluent:RibbonGroupBox Header="Shaders">
+                    <fluent:InRibbonGallery GroupBy="Tag">
+                        <fluent:Button Header="No Effect" LargeIcon="{StaticResource NoEffectLargeImage}" Tag="" />
+                        <fluent:Button Header="Negative" LargeIcon="{StaticResource NegativeMatrixEffectLargeImage}" Tag="Standard" />
+                        <fluent:Button Header="Sepia" LargeIcon="{StaticResource SepiaMatrixEffectLargeImage}" Tag="Standard" />
+                        <fluent:Button Header="Greyscale" LargeIcon="{StaticResource GreyscaleMatrixEffectLargeImage}" Tag="Standard" />
+                        <fluent:Button Header="Transparency" LargeIcon="{StaticResource TransparencyMatrixEffectLargeImage}" Tag="Standard" />
+                        <fluent:MenuItem Header="Custom HLSL Pixel Shader" Icon="{StaticResource CustomPxShaderSmallImage}" />
+                        <fluent:MenuItem Header="Custom RGBAW Matrix Shader" Icon="{StaticResource CustomMatrixSmallImage}" />
+                    </fluent:InRibbonGallery>
+                    <fluent:DropDownButton Header="Blending">
+                        <fluent:MenuItem Header="Average" />
+                        <fluent:MenuItem Header="Add" />
+                        <fluent:MenuItem Header="Subtract Left" />
+                        <fluent:MenuItem Header="Subtract Right" />
+                        <fluent:MenuItem Header="Difference" />
+                        <fluent:MenuItem Header="Multiply" />
+                        <fluent:MenuItem Header="Minimum" />
+                        <fluent:MenuItem Header="Maximum" />
+                        <fluent:MenuItem Header="Amplitude" />
+                    </fluent:DropDownButton>
+                </fluent:RibbonGroupBox>
             </fluent:RibbonTabItem>
 
             <fluent:Ribbon.ContextualGroups>
                 <fluent:RibbonContextualTabGroup Header="Editor" Visibility="{Binding Path=IsEditorReady, Converter={StaticResource BoolToVis}}" x:Name="editGroup" Background="{DynamicResource MainAccentBrush}" BorderBrush="{DynamicResource SubAccentBrush}" />
             </fluent:Ribbon.ContextualGroups>
+
+            <fluent:Ribbon.Menu>
+                <fluent:Backstage Background="{DynamicResource MainAccentBrush}" Header="XRF">
+                    <fluent:BackstageTabControl>
+                        <fluent:BackstageTabItem Header="Batch Operations" />
+                        <fluent:BackstageTabItem Header="Extract Frames" />
+                        <fluent:BackstageTabItem Header="Transcode" />
+                    </fluent:BackstageTabControl>
+                </fluent:Backstage>
+            </fluent:Ribbon.Menu>
         </fluent:Ribbon>
           
         <fluent:StatusBar DockPanel.Dock="Bottom" Style="{DynamicResource StatusBarStyle}">
@@ -62,29 +93,22 @@
                     <ad:LayoutPanel Orientation="Horizontal">
                         <ad:LayoutDocumentPaneGroup x:Name="originalFrameDocumentGroup">
                             <ad:LayoutDocumentPane>
-                                <ad:LayoutDocument Title="Original Frame">
+                                <ad:LayoutDocument Title="Original Frame" CanClose="False">
                                     <Image Source="{Binding CurrentFrame}" Stretch="None" />
                                 </ad:LayoutDocument>
                             </ad:LayoutDocumentPane>
                         </ad:LayoutDocumentPaneGroup>
                         <ad:LayoutDocumentPaneGroup x:Name="editedFrameDocumentGroup">
                             <ad:LayoutDocumentPane>
-                                <ad:LayoutDocument Title="Edited Frame">
+                                <ad:LayoutDocument Title="Edited Frame" CanClose="False">
 
                                 </ad:LayoutDocument>
                             </ad:LayoutDocumentPane>
                         </ad:LayoutDocumentPaneGroup>
-                        <ad:LayoutAnchorablePaneGroup x:Name="rightAnchorableGroup">
-                            <ad:LayoutAnchorablePane>
-                                <ad:LayoutAnchorable Title="Shader Gallery" CanAutoHide="True"  CanClose="True" CanHide="True">
-                                    
-                                </ad:LayoutAnchorable>
-                            </ad:LayoutAnchorablePane>
-                        </ad:LayoutAnchorablePaneGroup>
                     </ad:LayoutPanel>
                     <ad:LayoutAnchorablePaneGroup x:Name="bottomAnchorableGroup">
                         <ad:LayoutAnchorablePane DockHeight="150">
-                            <ad:LayoutAnchorable Title="Timeline" CanAutoHide="True"  CanClose="True" CanHide="True">
+                            <ad:LayoutAnchorable Title="Timeline" CanAutoHide="True"  CanClose="False" CanHide="True">
                                 <xceed:TimelinePanel />
                             </ad:LayoutAnchorable>
                         </ad:LayoutAnchorablePane>

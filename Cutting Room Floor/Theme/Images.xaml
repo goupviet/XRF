@@ -15,4 +15,13 @@
     <BitmapImage x:Key="XrfLogo" UriSource="Images/Logos/XRF.png" />
     <BitmapImage x:Key="XrfIcon" UriSource="Images/Logos/Icon.png" />
 
+    <BitmapImage x:Key="TransparencyMatrixEffectLargeImage" UriSource="Images/Large/Transparency.png" />
+    <BitmapImage x:Key="NegativeMatrixEffectLargeImage" UriSource="Images/Large/Negative.png" />
+    <BitmapImage x:Key="SepiaMatrixEffectLargeImage" UriSource="Images/Large/Sepia.png" />
+    <BitmapImage x:Key="GreyscaleMatrixEffectLargeImage" UriSource="Images/Large/Greyscale.png" />
+    <BitmapImage x:Key="NoEffectLargeImage" UriSource="Images/Large/ImageIcon.png" />
+    
+    <BitmapImage x:Key="CustomMatrixSmallImage" UriSource="Images/Small/Matrix.png" />
+    <BitmapImage x:Key="CustomPxShaderSmallImage" UriSource="Images/Small/Shader.png" />
+
 </ResourceDictionary>
