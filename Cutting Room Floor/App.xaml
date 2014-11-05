@@ -12,7 +12,7 @@
                 <ResourceDictionary Source="pack://application:,,,/Fluent;Component/Themes/Office2013/Generic.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Xceed.Wpf.AvalonDock.Themes.Metro;Component/Theme.xaml"/>
                 
-                <ResourceDictionary Source="Theme/Colours/Vibrant/Blue.xaml" />
+                <ResourceDictionary Source="Theme/Colours/Subdued/Taupe.xaml" />
                 <ResourceDictionary Source="Theme/Colours/Brushes.xaml" />
                 <ResourceDictionary Source="Theme/StatusBar.xaml"/>
                 <ResourceDictionary Source="Theme/DigitalClock.xaml"/>
@@ -20,7 +20,6 @@
             </ResourceDictionary.MergedDictionaries>
             
             <BooleanToVisibilityConverter x:Key="BoolToVis" />
-            <SolidColorBrush x:Key="AvalonDock_ThemeMetro_BaseColor3" Color="{StaticResource MainAccent}" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -5,7 +5,8 @@
                      xmlns:xceed="http://schemas.xceed.com/wpf/xaml/toolkit"
                      xmlns:fluent="clr-namespace:Fluent;assembly=Fluent"
                      xmlns:ad="http://schemas.xceed.com/wpf/xaml/avalondock"
-                     Title="Cutting Room Floor" Icon="../xrf.ico" WindowState="Maximized">
+                     Width="1366" Height="768"
+                     Title="Cutting Room Floor" Icon="../xrf.ico" WindowState="Maximized" Style="{DynamicResource RibbonWindowStyle}">
     
     <DockPanel LastChildFill="True">
         <fluent:Ribbon DockPanel.Dock="Top">
@@ -82,7 +83,7 @@
                         </ad:LayoutAnchorablePaneGroup>
                     </ad:LayoutPanel>
                     <ad:LayoutAnchorablePaneGroup x:Name="bottomAnchorableGroup">
-                        <ad:LayoutAnchorablePane>
+                        <ad:LayoutAnchorablePane DockHeight="150">
                             <ad:LayoutAnchorable Title="Timeline" CanAutoHide="True"  CanClose="True" CanHide="True">
                                 <xceed:TimelinePanel />
                             </ad:LayoutAnchorable>

@@ -3,4 +3,8 @@
     <SolidColorBrush x:Key="MainAccentBrush" Color="{StaticResource MainAccent}" />
     <SolidColorBrush x:Key="SubAccentBrush" Color="{StaticResource SubAccent}" />
     <SolidColorBrush x:Key="HighlightBrush" Color="{StaticResource Highlight}" />
+
+	<!-- Control-specific brushes -->
+	<SolidColorBrush x:Key="AvalonDock_ThemeMetro_BaseColor3" Color="{StaticResource MainAccent}" />
+	<SolidColorBrush x:Key="RibbonThemeColorBrush" Color="{StaticResource Highlight}" />
 </ResourceDictionary>
