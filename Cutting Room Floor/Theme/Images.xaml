@@ -20,6 +20,7 @@
     <BitmapImage x:Key="SepiaMatrixEffectLargeImage" UriSource="Images/Large/Sepia.png" />
     <BitmapImage x:Key="GreyscaleMatrixEffectLargeImage" UriSource="Images/Large/Greyscale.png" />
     <BitmapImage x:Key="NoEffectLargeImage" UriSource="Images/Large/ImageIcon.png" />
+    <BitmapImage x:Key="ArithmeticBlendingLargeImage" UriSource="Images/Large/Blending.png" />
     
     <BitmapImage x:Key="CustomMatrixSmallImage" UriSource="Images/Small/Matrix.png" />
     <BitmapImage x:Key="CustomPxShaderSmallImage" UriSource="Images/Small/Shader.png" />

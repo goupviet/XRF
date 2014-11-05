@@ -36,7 +36,7 @@
             
             <fluent:RibbonTabItem Header="Frame" Group="{Binding ElementName=editGroup}">
                 <fluent:RibbonGroupBox Header="Painting">
-                    <fluent:Button Header="Open With" KeyTip="S" SizeDefinition="Large" />
+                    <fluent:Button Header="Open Frame" KeyTip="F" SizeDefinition="Large" />
                 </fluent:RibbonGroupBox>
                 <fluent:RibbonGroupBox Header="Shaders">
                     <fluent:InRibbonGallery GroupBy="Tag">
@@ -48,7 +48,7 @@
                         <fluent:MenuItem Header="Custom HLSL Pixel Shader" Icon="{StaticResource CustomPxShaderSmallImage}" />
                         <fluent:MenuItem Header="Custom RGBAW Matrix Shader" Icon="{StaticResource CustomMatrixSmallImage}" />
                     </fluent:InRibbonGallery>
-                    <fluent:DropDownButton Header="Blending">
+                    <fluent:DropDownButton Header="Blending" Icon="{StaticResource ArithmeticBlendingLargeImage}">
                         <fluent:MenuItem Header="Average" />
                         <fluent:MenuItem Header="Add" />
                         <fluent:MenuItem Header="Subtract Left" />
@@ -76,7 +76,7 @@
                 </fluent:Backstage>
             </fluent:Ribbon.Menu>
         </fluent:Ribbon>
-          
+
         <fluent:StatusBar DockPanel.Dock="Bottom" Style="{DynamicResource StatusBarStyle}">
             <fluent:StatusBarItem Title="Status" HorizontalAlignment="Left">
                 <Label Content="{Binding StatusText}" />
