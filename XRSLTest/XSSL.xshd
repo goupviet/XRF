@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<SyntaxDefinition name="XSSL" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+  <Color name="Comment" foreground="#000000" />
+  <Color name="Literal" foreground="#FF007F" />
+  <Color name="Transform" foreground="#79ABFF" />
+  <Color name="Shader" foreground="#52E3F6" />
+
+  <RuleSet>
+    <Span color="Comment" begin="#" />
+    <Span color="Comment" multiline="true" begin="/\*" end="\*/" />
+
+    <Keywords color="Shader">
+      <Word>negative</Word>
+      <Word>transparency</Word>
+      <Word>sepia</Word>
+      <Word>greyscale</Word>
+      <Word>matrix</Word>
+      <Word>sub</Word>
+    </Keywords>
+
+    <Keywords color="Transform">
+      <Word>scale</Word>
+      <Word>rotate</Word>
+      <Word>shear</Word>
+      <Word>translate</Word>
+    </Keywords>
+
+    <!-- Digits -->
+    <Rule color="Literal">
+      \b0[xX][0-9a-fA-F]+  # hex number
+      |    \b
+      (    \d+(\.[0-9]+)?   #number with optional floating point
+      |    \.[0-9]+         #or just starting with floating point
+      )
+      ([eE][+-]?[0-9]+)? # optional exponent
+    </Rule>
+  </RuleSet>
+</SyntaxDefinition>
