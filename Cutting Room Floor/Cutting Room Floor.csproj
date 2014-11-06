@@ -246,6 +246,9 @@
     <Resource Include="Theme\Images\Small\WayForward.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Theme\Images\Small\Matrix.png" />
+    <Resource Include="Theme\Images\Small\Shader.png" />
+    <Resource Include="Theme\Images\Small\Timeline.png" />
     <Resource Include="Theme\Images\Large\Blending.png" />
     <Resource Include="Theme\Images\Large\Greyscale.png" />
     <Resource Include="Theme\Images\Large\ImageIcon.png" />

@@ -24,5 +24,6 @@
     
     <BitmapImage x:Key="CustomMatrixSmallImage" UriSource="Images/Small/Matrix.png" />
     <BitmapImage x:Key="CustomPxShaderSmallImage" UriSource="Images/Small/Shader.png" />
+    <BitmapImage x:Key="TimelineSmallImage" UriSource="Images/Small/Timeline.png" />
 
 </ResourceDictionary>
