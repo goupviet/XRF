@@ -17,8 +17,9 @@ namespace Xrf.ViewModels
     {
         private string MovieFilePath;
         private Scratchdisk ThumbnailScratchdisk;
-        private Log _log;
+        private Log EventLog;
         private FileSystemWatcher ThumbnailFsWatcher;
+        private int FramesPerSecond;
 
         private ObservableCollection<BitmapImage> _thumbnailCollection;
         public ObservableCollection<BitmapImage> ThumbnailCollection
@@ -57,9 +58,41 @@ namespace Xrf.ViewModels
         public EditorViewModel()
         {
             IsEditorReady = true;
-            _log = new Log();
+            EventLog = new Log();
         }
 
+        #region Clear Command
+        private ICommand _clearProjectCommand;
+        public ICommand ClearProjectCommand
+        {
+            get
+            {
+                return _clearProjectCommand ?? (_clearProjectCommand = new CommandHandler(() => ClearProject(), IsEditorReady));
+            }
+        }
+
+        public void ClearProject()
+        {
+            var AreYouSure = MessageBox.Show("Clearing the project will remove all scratchdisks. Any un-exported frames will be lost. Continue?", 
+                                             "Cutting Room Floor XRF", 
+                                             MessageBoxButton.YesNo, 
+                                             MessageBoxImage.Exclamation);
+
+            if (AreYouSure != MessageBoxResult.Yes)
+                return;
+
+            // CLEAR, EVERYTHING.
+            IsEditorReady = false;
+            _thumbnailCollection.Clear();
+            FramesPerSecond = 0;
+            MovieFilePath = null;
+            ThumbnailScratchdisk.Dispose();
+            ThumbnailFsWatcher.Dispose();
+            CurrentFrame = null;
+        }
+        #endregion
+
+        #region Open Command
         private ICommand _openMovieCommand;
         public ICommand OpenMovieCommand
         {
@@ -82,25 +115,28 @@ namespace Xrf.ViewModels
             if (openFileDialog.ShowDialog() == true)
                 MovieFilePath = openFileDialog.FileName;
 
+            // Estimate FPS here.
+            FramesPerSecond = 30;
+
             // Create a temporary scratchdisk to store thumbnails.
-            LogMessage("Creating thumbnail scratchdisk...");
+            LogMessage("Creating thumbnail scratchdisk...", EventLog);
             ThumbnailScratchdisk = new Scratchdisk();
 
-            LogMessage(string.Format("Scratchdisk created at {0}", ThumbnailScratchdisk.Location));
+            LogMessage(string.Format("Scratchdisk created at {0}", ThumbnailScratchdisk.Location), EventLog);
 
             // Create a new FrameExtractor configured to extract sqcif thumbnails.
             FrameExtractor thumbnailExtractor = new FrameExtractor(MovieFilePath, ThumbnailScratchdisk, ExtractionMode.Thumbnails);
 
             // Bind status messages to logger.
-            thumbnailExtractor.ExtractionStarted += (sender, e) => LogMessage("Extracting thumbnails...");
-            thumbnailExtractor.ExtractionComplete += (sender, e) => LogMessage("Thumbnails extracted successfully.");
+            thumbnailExtractor.ExtractionStarted += (sender, e) => LogMessage("Extracting thumbnails...", EventLog);
+            thumbnailExtractor.ExtractionComplete += (sender, e) => LogMessage("Thumbnails extracted successfully.", EventLog);
 
-            LogMessage("Creating a bindable image source...");
+            LogMessage("Creating a bindable image source...", EventLog);
             _thumbnailCollection = new ObservableCollection<BitmapImage>();
 
             // Create a file system watcher to watch the scratchdisk for file creation.
             // Created or deleted files will be added or removed from the timeline queue respectively.
-            LogMessage("Initialising File System Watcher for the thumbnail scratchdisk...");
+            LogMessage("Initialising File System Watcher for the thumbnail scratchdisk...", EventLog);
             ThumbnailFsWatcher = new FileSystemWatcher
             {
                 Path = ThumbnailScratchdisk.Location,
@@ -114,20 +150,22 @@ namespace Xrf.ViewModels
             // Start extraction, FFmpeg process will be spawned, files will be added to the scratchdisk,
             // file system watcher will pick them up and add them to the timeline.
             thumbnailExtractor.Extract();
+            IsEditorReady = true;
         }
+        #endregion
 
         void Watcher_FileCreated(object sender, FileSystemEventArgs e)
         {
             Dispatcher.Invoke(new Action(() => {
-                LogMessage(string.Format("Created file {0}", e.Name));
+                LogMessage(string.Format("Created file {0}", e.Name), EventLog);
                 _thumbnailCollection.Add(new BitmapImage(new Uri(e.FullPath)));
             }));
         }
 
-        void LogMessage(string message)
+        void LogMessage(string message, Log log)
         {
             Dispatcher.Invoke(new Action(() => {
-                _log.Write(message);
+                log.Write(message);
                 StatusText = message;
             }));
         }

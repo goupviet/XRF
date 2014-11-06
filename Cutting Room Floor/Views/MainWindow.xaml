@@ -13,11 +13,15 @@
         <fluent:Ribbon DockPanel.Dock="Top">
             <fluent:RibbonTabItem Header="Home" KeyTip="H">
                 <fluent:RibbonGroupBox Header="Project">
-                    <fluent:Button Header="Open Movie" KeyTip="O" LargeIcon="{StaticResource OpenMovieButtonLargeImage}" SizeDefinition="Large" Command="{Binding OpenMovieCommand}"/>
+                    <fluent:Button Header="Open Movie" KeyTip="O" LargeIcon="{StaticResource OpenMovieButtonLargeImage}" SizeDefinition="Large" Command="{Binding OpenMovieCommand}">
+                        <fluent:Button.ToolTip>
+                            <fluent:ScreenTip Title="Open Movie" Image="{StaticResource OpenMovieButtonLargeImage}" Text="Opens a movie file and extracts the frames into the timeline for editing."/>
+                        </fluent:Button.ToolTip>
+                    </fluent:Button>
                     <fluent:Button Header="Re-compile Movie" KeyTip="R" Icon="{StaticResource RecompileMovieButtonSmallImage}" SizeDefinition="Middle" IsEnabled="{Binding IsEditorReady}" />
-                    <fluent:Button Header="Clear Project" KeyTip="X" Icon="{StaticResource ClearProjectButtonSmallImage}" SizeDefinition="Middle" IsEnabled="{Binding IsEditorReady}" />
+                    <fluent:Button Header="Clear Project" KeyTip="X" Icon="{StaticResource ClearProjectButtonSmallImage}" SizeDefinition="Middle" IsEnabled="{Binding IsEditorReady}" Command="{Binding ClearProjectCommand}" />
                 </fluent:RibbonGroupBox>
-                <fluent:RibbonGroupBox Header="Frame" KeyTip="F" IsEnabled="{Binding IsEditorReady}">
+                <fluent:RibbonGroupBox Header="Time" KeyTip="F" IsEnabled="{Binding IsEditorReady}">
                     <fluent:Button Header="-1 Frame" KeyTip="1" Icon="{StaticResource TimecodeBackButtonSmallImage}" SizeDefinition="Middle" />
                     <fluent:Button Header="-10 Frames" KeyTip="2" Icon="{StaticResource TimecodeBackButtonSmallImage}" SizeDefinition="Middle" />
                     <fluent:Button Header="-1 Second" KeyTip="3" Icon="{StaticResource TimecodeWayBackButtonSmallImage}" SizeDefinition="Middle" />
@@ -25,12 +29,6 @@
                     <fluent:Button Header="+1 Frame" KeyTip="0" Icon="{StaticResource TimecodeForwardButtonSmallImage}" SizeDefinition="Middle" />
                     <fluent:Button Header="+10 Frames" KeyTip="9" Icon="{StaticResource TimecodeForwardButtonSmallImage}" SizeDefinition="Middle" />
                     <fluent:Button Header="+1 Second" KeyTip="8" Icon="{StaticResource TimecodeWayForwardButtonSmallImage}" SizeDefinition="Middle" />
-                    
-                    <Label Target="{Binding ElementName=TimecodeByTime}" Content="Jump to Time"/>
-                    <xceed:TimeSpanUpDown x:Name="TimecodeByTime" Margin="3"/>
-                    
-                    <Label Target="{Binding ElementName=TimecodeByFrame}" Content="Jump to Frame" />
-                    <xceed:IntegerUpDown x:Name="TimecodeByFrame" Margin="3" />
                 </fluent:RibbonGroupBox>
             </fluent:RibbonTabItem>
             
@@ -39,16 +37,21 @@
                     <fluent:Button Header="Open Frame" KeyTip="F" SizeDefinition="Large" />
                 </fluent:RibbonGroupBox>
                 <fluent:RibbonGroupBox Header="Shaders">
-                    <fluent:InRibbonGallery GroupBy="Tag">
+                    <fluent:InRibbonGallery ResizeMode="Both" GroupBy="Tag" MaxItemsInRow="6" MaxItemsInDropDownRow="8">
                         <fluent:Button Header="No Effect" LargeIcon="{StaticResource NoEffectLargeImage}" Tag="" />
                         <fluent:Button Header="Negative" LargeIcon="{StaticResource NegativeMatrixEffectLargeImage}" Tag="Standard" />
                         <fluent:Button Header="Sepia" LargeIcon="{StaticResource SepiaMatrixEffectLargeImage}" Tag="Standard" />
                         <fluent:Button Header="Greyscale" LargeIcon="{StaticResource GreyscaleMatrixEffectLargeImage}" Tag="Standard" />
                         <fluent:Button Header="Transparency" LargeIcon="{StaticResource TransparencyMatrixEffectLargeImage}" Tag="Standard" />
-                        <fluent:MenuItem Header="Custom HLSL Pixel Shader" Icon="{StaticResource CustomPxShaderSmallImage}" />
-                        <fluent:MenuItem Header="Custom RGBAW Matrix Shader" Icon="{StaticResource CustomMatrixSmallImage}" />
+                        <fluent:InRibbonGallery.Menu>
+                            <fluent:RibbonMenu>
+                                <fluent:MenuItem Header="Custom HLSL Pixel Shader" Icon="{StaticResource CustomPxShaderSmallImage}" />
+                                <fluent:MenuItem Header="Custom RGBAW Matrix Shader" Icon="{StaticResource CustomMatrixSmallImage}" />
+                            </fluent:RibbonMenu>
+                        </fluent:InRibbonGallery.Menu>
                     </fluent:InRibbonGallery>
-                    <fluent:DropDownButton Header="Blending" Icon="{StaticResource ArithmeticBlendingLargeImage}">
+                    
+                    <fluent:DropDownButton Header="Blending" LargeIcon="{StaticResource ArithmeticBlendingLargeImage}">
                         <fluent:MenuItem Header="Average" />
                         <fluent:MenuItem Header="Add" />
                         <fluent:MenuItem Header="Subtract Left" />
@@ -88,7 +91,6 @@
 
         <ad:DockingManager IsEnabled="{Binding IsEditorReady}" Foreground="#FF444444">
             <ad:LayoutRoot>
-                
                 <ad:LayoutPanel Orientation="Vertical">
                     <ad:LayoutPanel Orientation="Horizontal">
                         <ad:LayoutDocumentPaneGroup x:Name="originalFrameDocumentGroup">
@@ -108,7 +110,7 @@
                     </ad:LayoutPanel>
                     <ad:LayoutAnchorablePaneGroup x:Name="bottomAnchorableGroup">
                         <ad:LayoutAnchorablePane DockHeight="150">
-                            <ad:LayoutAnchorable Title="Timeline" CanAutoHide="True"  CanClose="False" CanHide="True">
+                            <ad:LayoutAnchorable Title="Timeline" CanAutoHide="True" CanClose="False" CanHide="True">
                                 <xceed:TimelinePanel />
                             </ad:LayoutAnchorable>
                         </ad:LayoutAnchorablePane>
