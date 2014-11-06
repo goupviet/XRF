@@ -124,16 +124,6 @@ namespace Xrf.ViewModels
 
             LogMessage(string.Format("Scratchdisk created at {0}", ThumbnailScratchdisk.Location), EventLog);
 
-            // Create a new FrameExtractor configured to extract sqcif thumbnails.
-            FrameExtractor thumbnailExtractor = new FrameExtractor(MovieFilePath, ThumbnailScratchdisk, ExtractionMode.Thumbnails);
-
-            // Bind status messages to logger.
-            thumbnailExtractor.ExtractionStarted += (sender, e) => LogMessage("Extracting thumbnails...", EventLog);
-            thumbnailExtractor.ExtractionComplete += (sender, e) => LogMessage("Thumbnails extracted successfully.", EventLog);
-
-            LogMessage("Creating a bindable image source...", EventLog);
-            _thumbnailCollection = new ObservableCollection<BitmapImage>();
-
             // Create a file system watcher to watch the scratchdisk for file creation.
             // Created or deleted files will be added or removed from the timeline queue respectively.
             LogMessage("Initialising File System Watcher for the thumbnail scratchdisk...", EventLog);
@@ -146,6 +136,16 @@ namespace Xrf.ViewModels
             // Bind creation event and start watching.
             ThumbnailFsWatcher.Created += new FileSystemEventHandler(Watcher_FileCreated);
             ThumbnailFsWatcher.EnableRaisingEvents = true;
+
+            // Create a new FrameExtractor configured to extract sqcif thumbnails.
+            FrameExtractor thumbnailExtractor = new FrameExtractor(MovieFilePath, ThumbnailScratchdisk, ExtractionMode.Thumbnails);
+
+            // Bind status messages to logger.
+            thumbnailExtractor.ExtractionStarted += (sender, e) => LogMessage("Extracting thumbnails...", EventLog);
+            thumbnailExtractor.ExtractionComplete += (sender, e) => LogMessage("Thumbnails extracted successfully.", EventLog);
+
+            LogMessage("Creating a bindable image source...", EventLog);
+            _thumbnailCollection = new ObservableCollection<BitmapImage>();
 
             // Start extraction, FFmpeg process will be spawned, files will be added to the scratchdisk,
             // file system watcher will pick them up and add them to the timeline.
