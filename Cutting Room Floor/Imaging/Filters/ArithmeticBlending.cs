@@ -5,8 +5,14 @@ using System.Runtime.InteropServices;
 
 namespace Xrf.Imaging.Filters
 {
+    /// <summary>Provides methods for blending two images together.</summary>
     public static class ArithmeticBlending
     {
+        /// <summary>Blends two images together.</summary>
+        /// <param name="sourceBitmap">The first bitmap to blend.</param>
+        /// <param name="blendBitmap">The second bitmap to blend.</param>
+        /// <param name="calculationType">The arithmetic method to use when blending.</param>
+        /// <returns>A bitmap consisting of two blended bitmaps.</returns>
         public static Bitmap Blend(this Bitmap sourceBitmap, Bitmap blendBitmap, ColorCalculationType calculationType)
         {
             BitmapData sourceData = sourceBitmap.LockBits(new Rectangle(0, 0,
@@ -53,6 +59,11 @@ namespace Xrf.Imaging.Filters
             return resultBitmap;
         }
 
+        /// <summary>Calculates the result of an arithemtic operation between to colour values.</summary>
+        /// <param name="color1">The first pixel colour value to use in calculation.</param>
+        /// <param name="color2">The second pixel colour value to use in calculation.</param>
+        /// <param name="calculationType">The arithmetic method to use when calculating the result.</param>
+        /// <returns>The result of the operation.</returns>
         public static byte Calculate(byte color1, byte color2, ColorCalculationType calculationType)
         {
             byte resultValue = 0;
@@ -116,6 +127,7 @@ namespace Xrf.Imaging.Filters
         }
     }
 
+    /// <summary>Defines arithmetic blending operations.</summary>
     public enum ColorCalculationType
     {
         Average,
