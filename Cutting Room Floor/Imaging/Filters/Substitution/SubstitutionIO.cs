@@ -5,9 +5,14 @@ using System.Runtime.InteropServices;
 
 namespace Xrf.Imaging.Filters.Substitution
 {
+    /// <summary>Provides methods for substituting a certain colour in a bitmap with another.</summary>
     public static class SubstitutionIO
     {
-        public static Bitmap ColorSubstitution(Bitmap sourceBitmap, ColorSubstitutionFilter filterData)
+        /// <summary>Applies a substitution filter to a bitmap.</summary>
+        /// <param name="sourceBitmap">The source bitmap.</param>
+        /// <param name="filterData">The substitution filter.</param>
+        /// <returns>The shaded bitmap.</returns>
+        public static Bitmap SubstituteColour(Bitmap sourceBitmap, ColorSubstitutionFilter filterData)
         {
             Bitmap resultBitmap = new Bitmap(sourceBitmap.Width, sourceBitmap.Height, PixelFormat.Format32bppArgb);
 
@@ -104,6 +109,9 @@ namespace Xrf.Imaging.Filters.Substitution
             return resultBitmap;
         }
 
+        /// <summary>Creates a 32bpp ARGB Copy of a Bitmap.</summary>
+        /// <param name="sourceBitmap">The source bitmap.</param>
+        /// <returns>A 32bpp ARGB representation of the source bitmap.</returns>
         public static Bitmap Format32bppArgbCopy(this Bitmap sourceBitmap)
         {
             Bitmap copyBitmap = new Bitmap(sourceBitmap.Width, sourceBitmap.Height, PixelFormat.Format32bppArgb);
