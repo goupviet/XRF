@@ -3,17 +3,17 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 
-namespace Xrf.Imaging.Filters
+namespace Xrf.Imaging.Filters.ArithmeticBlending
 {
     /// <summary>Provides methods for blending two images together.</summary>
-    public static class ArithmeticBlending
+    public static class Blending
     {
         /// <summary>Blends two images together.</summary>
         /// <param name="sourceBitmap">The first bitmap to blend.</param>
         /// <param name="blendBitmap">The second bitmap to blend.</param>
         /// <param name="calculationType">The arithmetic method to use when blending.</param>
         /// <returns>A bitmap consisting of two blended bitmaps.</returns>
-        public static Bitmap Blend(this Bitmap sourceBitmap, Bitmap blendBitmap, ColorCalculationType calculationType)
+        public static Bitmap Blend(this Bitmap sourceBitmap, Bitmap blendBitmap, ColourCalculationType calculationType)
         {
             BitmapData sourceData = sourceBitmap.LockBits(new Rectangle(0, 0,
                                     sourceBitmap.Width, sourceBitmap.Height),
@@ -64,46 +64,46 @@ namespace Xrf.Imaging.Filters
         /// <param name="color2">The second pixel colour value to use in calculation.</param>
         /// <param name="calculationType">The arithmetic method to use when calculating the result.</param>
         /// <returns>The result of the operation.</returns>
-        public static byte Calculate(byte color1, byte color2, ColorCalculationType calculationType)
+        public static byte Calculate(byte color1, byte color2, ColourCalculationType calculationType)
         {
             byte resultValue = 0;
             int intResult = 0;
 
             switch (calculationType)
             {
-                case ColorCalculationType.Add:
+                case ColourCalculationType.Add:
                     intResult = color1 + color2;
                     break;
 
-                case ColorCalculationType.Average:
+                case ColourCalculationType.Average:
                     intResult = (color1 + color2) / 2;
                     break;
 
-                case ColorCalculationType.SubtractLeft:
+                case ColourCalculationType.SubtractLeft:
                     intResult = color1 - color2;
                     break;
 
-                case ColorCalculationType.SubtractRight:
+                case ColourCalculationType.SubtractRight:
                     intResult = color2 - color1;
                     break;
 
-                case ColorCalculationType.Difference:
+                case ColourCalculationType.Difference:
                     intResult = Math.Abs(color1 - color2);
                     break;
 
-                case ColorCalculationType.Multiply:
+                case ColourCalculationType.Multiply:
                     intResult = (int)((color1 / 255.0 * color2 / 255.0) * 255.0);
                     break;
 
-                case ColorCalculationType.Min:
+                case ColourCalculationType.Min:
                     intResult = Math.Min(color1, color2);
                     break;
 
-                case ColorCalculationType.Max:
+                case ColourCalculationType.Max:
                     intResult = Math.Max(color1, color2);
                     break;
 
-                case ColorCalculationType.Amplitude:
+                case ColourCalculationType.Amplitude:
                     intResult = (int)(Math.Sqrt(color1 * color1 + color2 * color2)
                                                             / Math.Sqrt(2.0));
                     break;
@@ -121,7 +121,6 @@ namespace Xrf.Imaging.Filters
             {
                 resultValue = (byte)intResult;
             }
-
 
             return resultValue;
         }

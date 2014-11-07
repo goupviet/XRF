@@ -124,7 +124,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Imaging\Filters\ArithmeticBlending\ArithmeticBlending.cs" />
+    <Compile Include="Imaging\Filters\ArithmeticBlending\Blending.cs" />
     <Compile Include="Imaging\Filters\ArithmeticBlending\ColourCalculationType.cs" />
     <Compile Include="Imaging\Filters\Matrix\ColorMatrixIO.cs" />
     <Compile Include="Imaging\Filters\Matrix\CustomMatrix.cs" />
