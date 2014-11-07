@@ -63,7 +63,7 @@ namespace XRFGDITest
             };
 
             Bitmap bmp = ((Bitmap)pb_presub.Image).Format32bppArgbCopy();
-            pb_postsub.Image = SubstitutionIO.ColorSubstitution(bmp, filter);
+            pb_postsub.Image = SubstitutionIO.SubstituteColour(bmp, filter);
         }
 
         private void pnlsubclr_Click(object sender, EventArgs e)
