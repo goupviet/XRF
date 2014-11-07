@@ -1,7 +1,9 @@
 ﻿using ICSharpCode.AvalonEdit.Highlighting;
+using Xrf.Imaging.XSSL;
 using System.IO;
 using System.Windows;
 using System.Xml;
+using System;
 
 namespace XRSLTest
 {
@@ -31,7 +33,11 @@ namespace XRSLTest
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            
+            var tokens = (new XsslLexer()).Tokenize("scale 0.5\ntransparency 0.25");
+            foreach (var token in tokens)
+            {
+                Editor.Document.Insert(Editor.Document.Text.Length - 1, token + Environment.NewLine);
+            }
         }
 
     }

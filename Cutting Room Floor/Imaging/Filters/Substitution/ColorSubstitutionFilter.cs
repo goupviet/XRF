@@ -3,7 +3,7 @@
 namespace Xrf.Imaging.Filters.Substitution
 {
     /// <summary>Represents a colour substitution and replacement filter.</summary>
-    public struct ColorSubstitutionFilter
+    public class ColorSubstitutionFilter
     {
         private int thresholdValue = 10;
 

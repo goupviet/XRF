@@ -100,6 +100,12 @@
   <ItemGroup>
     <Resource Include="XSSL.xshd" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cutting Room Floor\Cutting Room Floor.csproj">
+      <Project>{3b788e60-20a7-40b4-bcca-ebd4089f3062}</Project>
+      <Name>Cutting Room Floor</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
