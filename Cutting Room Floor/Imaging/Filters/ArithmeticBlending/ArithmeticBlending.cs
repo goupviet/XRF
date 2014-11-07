@@ -126,18 +126,4 @@ namespace Xrf.Imaging.Filters
             return resultValue;
         }
     }
-
-    /// <summary>Defines arithmetic blending operations.</summary>
-    public enum ColorCalculationType
-    {
-        Average,
-        Add,
-        SubtractLeft,
-        SubtractRight,
-        Difference,
-        Multiply,
-        Min,
-        Max,
-        Amplitude
-    }
 }
