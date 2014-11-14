@@ -111,7 +111,9 @@
                     <ad:LayoutAnchorablePaneGroup x:Name="bottomAnchorableGroup">
                         <ad:LayoutAnchorablePane DockHeight="150">
                             <ad:LayoutAnchorable Title="Timeline" CanAutoHide="True" CanClose="False" CanHide="True">
-                                <xceed:TimelinePanel />
+                                <xceed:TimelinePanel>
+                                   
+                                </xceed:TimelinePanel>
                             </ad:LayoutAnchorable>
                         </ad:LayoutAnchorablePane>
                     </ad:LayoutAnchorablePaneGroup>

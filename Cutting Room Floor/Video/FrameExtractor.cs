@@ -19,7 +19,7 @@ namespace Xrf.Video
         {
             _input = path;
             _output = output;
-            _ffmpeg = FFmpeg.GetLocalInstance();
+            _ffmpeg = Properties.Settings.Default.FFMpegLocation;
             _mode = mode;
         }
 

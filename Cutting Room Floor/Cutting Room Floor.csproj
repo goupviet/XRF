@@ -71,6 +71,9 @@
     <Reference Include="Fluent">
       <HintPath>..\packages\Fluent.Ribbon.3.0.0\lib\net45\Fluent.dll</HintPath>
     </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -149,9 +152,8 @@
       <DependentUpon>SplashWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Video\ExtractionEventHandlers.cs" />
-    <Compile Include="Video\IO\FFmpeg.cs" />
     <Compile Include="Video\MediaInfo.cs" />
-    <Compile Include="Video\IO\Scratchdisk.cs" />
+    <Compile Include="Video\Scratchdisk.cs" />
     <Compile Include="Video\FrameExtractor.cs" />
     <Compile Include="ViewModels\SplashScreenViewModel.cs" />
     <Page Include="Theme\Colours\Subdued\Sky.xaml">

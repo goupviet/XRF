@@ -20,6 +20,7 @@ namespace Xrf.ViewModels
         private Log EventLog;
         private FileSystemWatcher ThumbnailFsWatcher;
         private int FramesPerSecond;
+        List<string> pathsTEST;
 
         private ObservableCollection<BitmapImage> _thumbnailCollection;
         public ObservableCollection<BitmapImage> ThumbnailCollection
@@ -131,6 +132,8 @@ namespace Xrf.ViewModels
             {
                 Path = ThumbnailScratchdisk.Location,
                 Filter = "thumb-*.jpg",
+                NotifyFilter = NotifyFilters.CreationTime,
+                IncludeSubdirectories = true
             };
 
             // Bind creation event and start watching.
@@ -146,6 +149,7 @@ namespace Xrf.ViewModels
 
             LogMessage("Creating a bindable image source...", EventLog);
             _thumbnailCollection = new ObservableCollection<BitmapImage>();
+            pathsTEST = new List<string>();
 
             // Start extraction, FFmpeg process will be spawned, files will be added to the scratchdisk,
             // file system watcher will pick them up and add them to the timeline.
@@ -156,10 +160,8 @@ namespace Xrf.ViewModels
 
         void Watcher_FileCreated(object sender, FileSystemEventArgs e)
         {
-            Dispatcher.Invoke(new Action(() => {
-                LogMessage(string.Format("Created file {0}", e.Name), EventLog);
-                _thumbnailCollection.Add(new BitmapImage(new Uri(e.FullPath)));
-            }));
+            _thumbnailCollection.Add(new BitmapImage(new Uri(e.FullPath)));
+            pathsTEST.Add(e.FullPath);
         }
 
         void LogMessage(string message, Log log)
