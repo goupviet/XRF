@@ -140,12 +140,6 @@
     <Compile Include="Imaging\Filters\PixelManipulation\PixelManipulationIO.cs" />
     <Compile Include="Imaging\Filters\Substitution\ColorSubstitutionFilter.cs" />
     <Compile Include="Imaging\Filters\Substitution\SubstitutionIO.cs" />
-    <Compile Include="Imaging\XSSL\ILexer.cs" />
-    <Compile Include="Imaging\XSSL\Token.cs" />
-    <Compile Include="Imaging\XSSL\TokenDefinition.cs" />
-    <Compile Include="Imaging\XSSL\TokenPosition.cs" />
-    <Compile Include="Imaging\XSSL\XsslLexer.cs" />
-    <Compile Include="Imaging\XSSL\XsslParser.cs" />
     <Compile Include="Logging\Log.cs" />
     <Compile Include="ViewModels\CommandHandler.cs" />
     <Compile Include="Views\SplashWindow.xaml.cs">
