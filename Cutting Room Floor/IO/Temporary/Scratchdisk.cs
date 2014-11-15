@@ -4,8 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xrf.IO.Video;
 
-namespace Xrf.Video.IO
+namespace Xrf.IO.Temporary
 {
     /// <summary>
     /// Represents an iterable temporary folder for storing frames and thumbnails.
@@ -17,7 +18,11 @@ namespace Xrf.Video.IO
         /// </summary>
         public string Location { get; set; }
 
+        public event ScratchdiskFileAddedEventHandler FileAdded;
+        public event ScratchdiskFileDeletedEventHandler FileDeleted;
+
         private List<string> _fileTable;
+        private FileSystemWatcher _watcher;
 
         /// <summary>
         /// Creates a new scratchdisk in the temporary folder.
@@ -26,6 +31,18 @@ namespace Xrf.Video.IO
         {
             Location = GetTemporaryDirectory();
             _fileTable = new List<string>();
+
+            // Watch for files added to the scratchdisk location and add them to the internal file table.
+            _watcher = new FileSystemWatcher
+            {
+                Path = Location,
+                Filter = "*.jpg",
+                NotifyFilter = NotifyFilters.CreationTime,
+                IncludeSubdirectories = true,
+            };
+
+            _watcher.Created += new FileSystemEventHandler(Watcher_Created);
+            _watcher.EnableRaisingEvents = true;
         }
 
         /// <summary>
@@ -56,9 +73,12 @@ namespace Xrf.Video.IO
         /// Adds a file name to the internal file table.
         /// </summary>
         /// <param name="filename">The filename to add.</param>
-        public void AddFileReference(string filename)
+        private void AddFileReference(string filename)
         {
             _fileTable.Add(filename);
+            var e = new ScratchdiskFileEventArgs(filename, ScratchdiskFileOperations.Added);
+
+            OnFileAdded(e);
         }
 
         /// <summary>
@@ -69,6 +89,9 @@ namespace Xrf.Video.IO
         {
             File.Delete(filename);
             _fileTable.Remove(filename);
+
+            var e = new ScratchdiskFileEventArgs(filename, ScratchdiskFileOperations.Deleted);
+            OnFileDeleted(e);
         }
 
         /// <summary>
@@ -97,6 +120,25 @@ namespace Xrf.Video.IO
         {
             Directory.Delete(Location);
             _fileTable.Clear();
+            _watcher.Dispose();
         }
+
+        private void Watcher_Created(object sender, FileSystemEventArgs e)
+        {
+            AddFileReference(e.FullPath);
+        }
+
+        protected virtual void OnFileAdded(ScratchdiskFileEventArgs e)
+        {
+            if (FileAdded != null)
+                FileAdded(this, e);
+        }
+
+        protected virtual void OnFileDeleted(ScratchdiskFileEventArgs e)
+        {
+            if (FileDeleted != null)
+                FileDeleted(this, e);
+        }
+
     }
 }
