@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using Xrf.IO.Video;
 
 namespace Xrf.IO.Temporary
@@ -11,17 +12,25 @@ namespace Xrf.IO.Temporary
     /// <summary>
     /// Represents an iterable temporary folder for storing frames and thumbnails.
     /// </summary>
-    public class Scratchdisk : IDisposable
+    public class Scratchdisk : DependencyObject, IDisposable
     {
         /// <summary>
         /// The actual location of the scratchdisk.
         /// </summary>
         public string Location { get; set; }
 
+        public static readonly DependencyProperty FileListProperty = DependencyProperty.Register("FileList", 
+            typeof(List<string>), typeof(Scratchdisk));
+
+        public List<string> FileList
+        {
+            get { return (List<string>)GetValue(FileListProperty); }
+            set { SetValue(FileListProperty, value); }
+        }
+
         public event ScratchdiskFileAddedEventHandler FileAdded;
         public event ScratchdiskFileDeletedEventHandler FileDeleted;
 
-        private List<string> _fileTable;
         private FileSystemWatcher _watcher;
 
         /// <summary>
@@ -30,13 +39,13 @@ namespace Xrf.IO.Temporary
         public Scratchdisk()
         {
             Location = GetTemporaryDirectory();
-            _fileTable = new List<string>();
+            FileList = new List<string>();
 
             // Watch for files added to the scratchdisk location and add them to the internal file table.
             _watcher = new FileSystemWatcher
             {
                 Path = Location,
-                Filter = "*.jpg",
+                Filter = @"*.jpg",
                 NotifyFilter = NotifyFilters.CreationTime,
                 IncludeSubdirectories = true,
             };
@@ -54,7 +63,7 @@ namespace Xrf.IO.Temporary
         {
             get
             {
-                return _fileTable[i];
+                return FileList[i];
             }
         }
 
@@ -75,7 +84,7 @@ namespace Xrf.IO.Temporary
         /// <param name="filename">The filename to add.</param>
         private void AddFileReference(string filename)
         {
-            _fileTable.Add(filename);
+            FileList.Add(filename);
             var e = new ScratchdiskFileEventArgs(filename, ScratchdiskFileOperations.Added);
 
             OnFileAdded(e);
@@ -88,7 +97,7 @@ namespace Xrf.IO.Temporary
         private void DeleteFile(string filename)
         {
             File.Delete(filename);
-            _fileTable.Remove(filename);
+            FileList.Remove(filename);
 
             var e = new ScratchdiskFileEventArgs(filename, ScratchdiskFileOperations.Deleted);
             OnFileDeleted(e);
@@ -119,7 +128,7 @@ namespace Xrf.IO.Temporary
         public void Dispose()
         {
             Directory.Delete(Location);
-            _fileTable.Clear();
+            FileList.Clear();
             _watcher.Dispose();
         }
 
