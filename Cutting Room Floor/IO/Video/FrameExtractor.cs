@@ -1,21 +1,21 @@
-﻿using Xrf.Video.IO;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
+using Xrf.IO.Temporary;
 
-namespace Xrf.Video
+namespace Xrf.IO.Video
 {
     public class FrameExtractor
     {
         private string _input;
         private Scratchdisk _output;
         private string _ffmpeg;
-        private ExtractionMode _mode;
+        private FrameExtractionMode _mode;
 
         public event ExtractionStartedEventHandler ExtractionStarted;
         public event ExtractionCompleteEventHandler ExtractionComplete;
 
-        public FrameExtractor(string path, Scratchdisk output, ExtractionMode mode = ExtractionMode.Frames)
+        public FrameExtractor(string path, Scratchdisk output, FrameExtractionMode mode = FrameExtractionMode.Frames)
         {
             _input = path;
             _output = output;
@@ -35,7 +35,7 @@ namespace Xrf.Video
             {
                 string arguments;
 
-                if (_mode == ExtractionMode.Thumbnails)
+                if (_mode == FrameExtractionMode.Thumbnails)
                 {
                     string filename_template = "thumb-%3d.jpeg";
                     string output_template = Path.Combine(_output.Location, filename_template);
@@ -95,7 +95,7 @@ namespace Xrf.Video
         }
     }
 
-    public enum ExtractionMode
+    public enum FrameExtractionMode
     {
         Frames,
         Thumbnails

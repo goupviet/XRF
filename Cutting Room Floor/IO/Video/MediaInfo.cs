@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 
 #pragma warning disable 1591 // Disable XML documentation warnings
 
-namespace Xrf.Video
+namespace Xrf.IO.Video
 {
     public enum StreamKind
     {
