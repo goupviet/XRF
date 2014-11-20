@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using System.Drawing.Imaging;
 
-namespace Xrf.Imaging.Filters.Matrix
+namespace Xrf.Shaders.Matrix
 {
     /// <summary>Represents a matrix shader that alters the images transparency.</summary>
     public static class TransparencyMatrix

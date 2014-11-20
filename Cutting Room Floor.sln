@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XRFGDITest", "XRFGDITest\XR
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{59BFDF65-DABE-4FEF-8CC1-5C2EB4CDF988}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xrf.Shaders", "Xrf.Shaders\Xrf.Shaders.csproj", "{1ED3C029-BB4A-4007-9775-874BDA914E96}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,16 @@ Global
 		{05A6743A-D962-4F75-A09E-DEEDEBB1981E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{05A6743A-D962-4F75-A09E-DEEDEBB1981E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{05A6743A-D962-4F75-A09E-DEEDEBB1981E}.Release|Win32.ActiveCfg = Release|Any CPU
+		{1ED3C029-BB4A-4007-9775-874BDA914E96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1ED3C029-BB4A-4007-9775-874BDA914E96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1ED3C029-BB4A-4007-9775-874BDA914E96}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{1ED3C029-BB4A-4007-9775-874BDA914E96}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{1ED3C029-BB4A-4007-9775-874BDA914E96}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{1ED3C029-BB4A-4007-9775-874BDA914E96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1ED3C029-BB4A-4007-9775-874BDA914E96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1ED3C029-BB4A-4007-9775-874BDA914E96}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{1ED3C029-BB4A-4007-9775-874BDA914E96}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{1ED3C029-BB4A-4007-9775-874BDA914E96}.Release|Win32.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,4 +1,4 @@
-﻿namespace Xrf.Imaging.Filters.ArithmeticBlending
+﻿namespace Xrf.Shaders.ArithmeticBlending
 {
     /// <summary>Defines arithmetic blending operations.</summary>
     public enum ColourCalculationType

@@ -1,4 +1,4 @@
-﻿namespace Xrf.Imaging.Filters.PixelManipulation
+﻿namespace Xrf.Shaders.PixelManipulation
 {
     /// <summary>Defines colour swap operations.</summary>
     public enum ColourSwapType

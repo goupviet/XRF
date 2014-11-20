@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using System.Drawing.Imaging;
 
-namespace Xrf.Imaging.Filters.Matrix
+namespace Xrf.Shaders.Matrix
 {
     /// <summary>Represents a custom, user-defined matrix shadery.</summary>
     public static class CustomMatrix

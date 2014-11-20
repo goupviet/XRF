@@ -3,7 +3,7 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 
-namespace Xrf.Imaging.Filters.Substitution
+namespace Xrf.Shaders.Substitution
 {
     /// <summary>Provides methods for substituting a certain colour in a bitmap with another.</summary>
     public static class SubstitutionIO

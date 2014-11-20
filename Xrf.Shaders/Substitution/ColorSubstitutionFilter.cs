@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace Xrf.Imaging.Filters.Substitution
+namespace Xrf.Shaders.Substitution
 {
     /// <summary>Represents a colour substitution and replacement filter.</summary>
     public class ColorSubstitutionFilter

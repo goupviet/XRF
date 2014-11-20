@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using System.Drawing.Imaging;
 
-namespace Xrf.Imaging.Filters
+namespace Xrf.Shaders
 {
     /// <summary>Provides methods for drawing a ColorMatrix shader onto a bitmap.</summary>
     public static class ColorMatrixIO

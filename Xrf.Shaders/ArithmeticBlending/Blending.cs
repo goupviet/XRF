@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 
-namespace Xrf.Imaging.Filters.ArithmeticBlending
+namespace Xrf.Shaders.ArithmeticBlending
 {
     /// <summary>Provides methods for blending two images together.</summary>
     public static class Blending

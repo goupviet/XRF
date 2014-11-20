@@ -1,4 +1,4 @@
-﻿namespace Xrf.Imaging.Filters.PixelManipulation
+﻿namespace Xrf.Shaders.PixelManipulation
 {
     /// <summary>Represents the ARGB value of a pixel.</summary>
     public class ArgbPixel

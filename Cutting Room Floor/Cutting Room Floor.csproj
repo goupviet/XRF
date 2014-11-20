@@ -130,19 +130,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Imaging\Filters\ArithmeticBlending\Blending.cs" />
-    <Compile Include="Imaging\Filters\ArithmeticBlending\ColourCalculationType.cs" />
-    <Compile Include="Imaging\Filters\Matrix\ColorMatrixIO.cs" />
-    <Compile Include="Imaging\Filters\Matrix\CustomMatrix.cs" />
-    <Compile Include="Imaging\Filters\Matrix\GrayscaleMatrix.cs" />
-    <Compile Include="Imaging\Filters\Matrix\NegativeMatrix.cs" />
-    <Compile Include="Imaging\Filters\Matrix\SepiaMatrix.cs" />
-    <Compile Include="Imaging\Filters\Matrix\TransparencyMatrix.cs" />
-    <Compile Include="Imaging\Filters\PixelManipulation\ArgbPixel.cs" />
-    <Compile Include="Imaging\Filters\PixelManipulation\ColourSwapType.cs" />
-    <Compile Include="Imaging\Filters\PixelManipulation\PixelManipulationIO.cs" />
-    <Compile Include="Imaging\Filters\Substitution\ColorSubstitutionFilter.cs" />
-    <Compile Include="Imaging\Filters\Substitution\SubstitutionIO.cs" />
     <Compile Include="IO\Temporary\ScratchdiskEvents.cs" />
     <Compile Include="ViewModels\CommandHandler.cs" />
     <Compile Include="Views\Dialogs.cs" />

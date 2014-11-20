@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 
-namespace Xrf.Imaging.Filters.PixelManipulation
+namespace Xrf.Shaders.PixelManipulation
 {
     /// <summary>Implements LINQ pixel colour manipulation.</summary>
     public static class PixelManipulationIO
