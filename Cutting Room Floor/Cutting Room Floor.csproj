@@ -53,7 +53,7 @@
     <ApplicationIcon>xrf.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>CuttingRoomFloor.App</StartupObject>
+    <StartupObject>Xrf.App</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AForge">
@@ -70,6 +70,9 @@
     </Reference>
     <Reference Include="Fluent">
       <HintPath>..\packages\Fluent.Ribbon.3.0.0\lib\net45\Fluent.dll</HintPath>
+    </Reference>
+    <Reference Include="FluidKit">
+      <HintPath>..\packages\FluidKit.1.0\lib\net35\FluidKit.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
@@ -140,15 +143,16 @@
     <Compile Include="Imaging\Filters\PixelManipulation\PixelManipulationIO.cs" />
     <Compile Include="Imaging\Filters\Substitution\ColorSubstitutionFilter.cs" />
     <Compile Include="Imaging\Filters\Substitution\SubstitutionIO.cs" />
-    <Compile Include="Logging\Log.cs" />
+    <Compile Include="IO\Temporary\ScratchdiskEvents.cs" />
     <Compile Include="ViewModels\CommandHandler.cs" />
+    <Compile Include="Views\Dialogs.cs" />
     <Compile Include="Views\SplashWindow.xaml.cs">
       <DependentUpon>SplashWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Video\ExtractionEventHandlers.cs" />
-    <Compile Include="Video\MediaInfo.cs" />
-    <Compile Include="Video\Scratchdisk.cs" />
-    <Compile Include="Video\FrameExtractor.cs" />
+    <Compile Include="IO\Video\ExtractionEventHandlers.cs" />
+    <Compile Include="IO\Video\MediaInfo.cs" />
+    <Compile Include="IO\Temporary\Scratchdisk.cs" />
+    <Compile Include="IO\Video\FrameExtractor.cs" />
     <Compile Include="ViewModels\SplashScreenViewModel.cs" />
     <Page Include="Theme\Colours\Subdued\Sky.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -264,9 +268,9 @@
     <Resource Include="Theme\Images\Logos\Icon.png" />
     <Resource Include="Theme\Images\Logos\XRF.png" />
     <Resource Include="Theme\Images\Tiles\skulls.png" />
-    <Resource Include="ffmpeg.exe">
+    <Content Include="ffmpeg.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </Content>
     <Content Include="MediaInfo.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

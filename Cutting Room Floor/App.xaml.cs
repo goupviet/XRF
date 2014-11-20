@@ -17,6 +17,10 @@ namespace Xrf
         {
             // Sanity checks
 
+#if DEBUG
+            Xrf.Properties.Settings.Default.FFMpegLocation = System.IO.Path.Combine(Environment.CurrentDirectory, "ffmpeg.exe");
+#endif
+
             // Check for valid FFmpeg
             if (string.IsNullOrEmpty(Xrf.Properties.Settings.Default.FFMpegLocation))
             {

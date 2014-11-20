@@ -5,6 +5,7 @@
                      xmlns:wpfsvl="clr-namespace:WPFSoundVisualizationLib;assembly=WPFSoundVisualizationLib"
                      xmlns:xceed="http://schemas.xceed.com/wpf/xaml/toolkit"
                      xmlns:fluent="clr-namespace:Fluent;assembly=Fluent"
+                     xmlns:fluid="clr-namespace:FluidKit.Controls;assembly=FluidKit"
                      xmlns:ad="http://schemas.xceed.com/wpf/xaml/avalondock"
                      Width="1366" Height="768"
                      Title="Cutting Room Floor" Icon="../xrf.ico" WindowState="Maximized">
@@ -111,9 +112,15 @@
                     <ad:LayoutAnchorablePaneGroup x:Name="bottomAnchorableGroup">
                         <ad:LayoutAnchorablePane DockHeight="150">
                             <ad:LayoutAnchorable Title="Timeline" CanAutoHide="True" CanClose="False" CanHide="True">
-                                <xceed:TimelinePanel>
-                                   
-                                </xceed:TimelinePanel>
+                                <fluid:ItemSkimmingPanel>
+                                    <ItemsControl ItemsSource="{Binding Source=ThumbnailScratchdisk, Path=FileList}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Image Source="{Binding}" Width="128" Height="96" Stretch="UniformToFill" />
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </fluid:ItemSkimmingPanel>
                             </ad:LayoutAnchorable>
                         </ad:LayoutAnchorablePane>
                     </ad:LayoutAnchorablePaneGroup>

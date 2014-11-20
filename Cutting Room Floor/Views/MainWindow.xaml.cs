@@ -13,8 +13,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Fluent;
-using Xrf.Video;
-using Xrf.Video.IO;
 using Xrf.ViewModels;
 
 namespace Xrf.Views
@@ -37,7 +35,6 @@ namespace Xrf.Views
                 System.Diagnostics.Debug.WriteLine(e.InnerException);
             }
             DataContext = new EditorViewModel();
-            //new SplashWindow().ShowDialog();
         }
     }
 }
