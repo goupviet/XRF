@@ -1,7 +1,6 @@
 ﻿<fluent:RibbonWindow x:Class="Xrf.Views.MainWindow"
                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                     xmlns:filter="clr-namespace:Xrf.Imaging.Filters"
                      xmlns:wpfsvl="clr-namespace:WPFSoundVisualizationLib;assembly=WPFSoundVisualizationLib"
                      xmlns:xceed="http://schemas.xceed.com/wpf/xaml/toolkit"
                      xmlns:fluent="clr-namespace:Fluent;assembly=Fluent"

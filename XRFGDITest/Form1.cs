@@ -8,8 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Xrf.Imaging.Filters.Matrix;
-using Xrf.Imaging.Filters.Substitution;
+using Xrf.Shaders.Matrix;
+using Xrf.Shaders.Substitution;
 
 namespace XRFGDITest
 {

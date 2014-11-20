@@ -78,9 +78,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Cutting Room Floor\Cutting Room Floor.csproj">
-      <Project>{3b788e60-20a7-40b4-bcca-ebd4089f3062}</Project>
-      <Name>Cutting Room Floor</Name>
+    <ProjectReference Include="..\Xrf.Shaders\Xrf.Shaders.csproj">
+      <Project>{1ed3c029-bb4a-4007-9775-874bda914e96}</Project>
+      <Name>Xrf.Shaders</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
