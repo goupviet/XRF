@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xrf.StainedGlass.Editor", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XRF StainedGlass", "XRF StainedGlass\XRF StainedGlass.csproj", "{0AE372A3-4A92-47FD-B51E-670F2E09176C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{82E02E7D-6833-4599-AF0A-14214615E8AE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,5 +83,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{05A6743A-D962-4F75-A09E-DEEDEBB1981E} = {59BFDF65-DABE-4FEF-8CC1-5C2EB4CDF988}
+		{1ED3C029-BB4A-4007-9775-874BDA914E96} = {82E02E7D-6833-4599-AF0A-14214615E8AE}
+		{DE64BF4C-662D-4B9A-B2B7-C2BDE971AD00} = {82E02E7D-6833-4599-AF0A-14214615E8AE}
 	EndGlobalSection
 EndGlobal
