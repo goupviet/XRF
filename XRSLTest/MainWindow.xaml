@@ -1,9 +1,0 @@
-﻿<Window x:Class="XRSLTest.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:ae="clr-namespace:ICSharpCode.AvalonEdit;assembly=ICSharpCode.AvalonEdit"
-        Title="MainWindow" Height="350" Width="525" Loaded="Window_Loaded">
-    <Grid>
-        <ae:TextEditor Name="Editor" SyntaxHighlighting="XRF Shader Sequencing Language" />
-    </Grid>
-</Window>
