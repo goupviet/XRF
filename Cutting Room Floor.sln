@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XRF StainedGlass", "XRF Sta
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{82E02E7D-6833-4599-AF0A-14214615E8AE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XRF StainedGlass Editor Control Test", "XRF StainedGlass Editor Control Test\XRF StainedGlass Editor Control Test.csproj", "{380F1A0D-EE42-4049-8814-06FDC8353742}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +79,16 @@ Global
 		{0AE372A3-4A92-47FD-B51E-670F2E09176C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{0AE372A3-4A92-47FD-B51E-670F2E09176C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{0AE372A3-4A92-47FD-B51E-670F2E09176C}.Release|Win32.ActiveCfg = Release|Any CPU
+		{380F1A0D-EE42-4049-8814-06FDC8353742}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{380F1A0D-EE42-4049-8814-06FDC8353742}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{380F1A0D-EE42-4049-8814-06FDC8353742}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{380F1A0D-EE42-4049-8814-06FDC8353742}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{380F1A0D-EE42-4049-8814-06FDC8353742}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{380F1A0D-EE42-4049-8814-06FDC8353742}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{380F1A0D-EE42-4049-8814-06FDC8353742}.Release|Any CPU.Build.0 = Release|Any CPU
+		{380F1A0D-EE42-4049-8814-06FDC8353742}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{380F1A0D-EE42-4049-8814-06FDC8353742}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{380F1A0D-EE42-4049-8814-06FDC8353742}.Release|Win32.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -85,5 +97,6 @@ Global
 		{05A6743A-D962-4F75-A09E-DEEDEBB1981E} = {59BFDF65-DABE-4FEF-8CC1-5C2EB4CDF988}
 		{1ED3C029-BB4A-4007-9775-874BDA914E96} = {82E02E7D-6833-4599-AF0A-14214615E8AE}
 		{DE64BF4C-662D-4B9A-B2B7-C2BDE971AD00} = {82E02E7D-6833-4599-AF0A-14214615E8AE}
+		{380F1A0D-EE42-4049-8814-06FDC8353742} = {59BFDF65-DABE-4FEF-8CC1-5C2EB4CDF988}
 	EndGlobalSection
 EndGlobal
