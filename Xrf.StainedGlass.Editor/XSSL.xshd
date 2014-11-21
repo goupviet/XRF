@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<SyntaxDefinition name="XSSL" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+    <Color name="Comment" foreground="#CCDF32" />
+    <Color name="Shader" foreground="#00D0D0" />
+    <Color name="Literal" foreground="#FF8080" />
+    
+    <!-- This is the main ruleset. -->
+    <RuleSet>
+        <Span color="Comment" begin="#" />
+        <Span color="Comment" multiline="true" 
+           begin="/\*" end="\*/" />
+        
+        <Keywords color="Shader">
+            <Word>grayscale</Word>
+            <Word>invert</Word>
+            <Word>sepia</Word>
+            <Word>opacity</Word>
+            <Word>swap</Word>
+            <Word>substitute</Word>
+            <Word>threshold</Word>
+            <Word>blend</Word>
+            <Word>average</Word>
+            <Word>add</Word>
+            <Word>subtractleft</Word>
+            <Word>subtractright</Word>
+            <Word>difference</Word>
+            <Word>multiply</Word>
+            <Word>min</Word>
+            <Word>max</Word>
+            <Word>amplitude</Word>
+            <Word>swap</Word>
+            <Word>shiftright</Word>
+            <Word>shiftleft</Word>
+            <Word>br</Word>
+            <Word>br_g</Word>
+            <Word>bg</Word>
+            <Word>bg_r</Word>
+            <Word>rg</Word>
+            <Word>rg_b</Word>
+        </Keywords>
+        
+        <!-- Digits -->
+        <Rule color="Literal">
+            \b0[xX][0-9a-fA-F]+  # hex number
+        |    \b
+            (    \d+(\.[0-9]+)?   #number with optional floating point
+            |    \.[0-9]+         #or just starting with floating point
+            )
+            ([eE][+-]?[0-9]+)? # optional exponent
+        </Rule>
+    </RuleSet>
+</SyntaxDefinition>
