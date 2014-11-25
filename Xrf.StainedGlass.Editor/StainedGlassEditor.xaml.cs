@@ -27,6 +27,7 @@ namespace Xrf.StainedGlass.Editor
     {
         public StainedGlassEditor()
         {
+            // Load and apply syntax highlighting rules to the text editor.
             var syntaxdef = new Uri(@"/Resources/XSSL.xshd", UriKind.Relative);
 
             using (var xshd_stream = Application.GetContentStream(syntaxdef).Stream)

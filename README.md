@@ -1,7 +1,8 @@
 Cutting Room Floor [XRF]
 =========
 
-XRF is a linear video editor and shader, primarily focused on frame by frame editing.
+
+An extensible, moddable, and hackable linear video frame editor and pixel shader, written in C#, and powered by FFmpeg, WPF, and superhuman-amounts of caffeine.
 
 Features
 --------
