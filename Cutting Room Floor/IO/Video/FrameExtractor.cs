@@ -33,31 +33,14 @@ namespace Xrf.IO.Video
 
             try
             {
-                string arguments;
+                string filename_template = "%3d.jpeg";
+                string output_template = Path.Combine(_output.Location, filename_template);
+                string arguments_template = "-i \"{0}\" -s {1} \"{2}\"";
+                string scale_flag = (_mode == FrameExtractionMode.Thumbnails) ? "sqcif" : "wxh";
 
-                if (_mode == FrameExtractionMode.Thumbnails)
-                {
-                    string filename_template = "thumb-%3d.jpeg";
-                    string output_template = Path.Combine(_output.Location, filename_template);
-                    string arguments_template = "-i \"{0}\" -s {1} \"{2}\"";
+                string arguments = string.Format(arguments_template, _input, scale_flag, output_template);
 
-                    arguments = string.Format(arguments_template, _input, "sqcif", output_template);
-                }
-                else
-                {
-                    // Frames, ignore -s sqcif flag
-                    string filename_template = "frame-%3d.jpeg";
-                    string output_template = Path.Combine(_output.Location, filename_template);
-                    string arguments_template = "-i \"{0}\" \"{1}\"";
-
-                    arguments = string.Format(arguments_template, _input, output_template);
-                }
-
-                Process extract = new Process()
-                {
-                    EnableRaisingEvents = true
-                };
-
+                Process extract = new Process() { EnableRaisingEvents = true };
                 extract.Exited += (sender, e) => OnExtractionCompleted(e);
 
                 ProcessStartInfo psi = new ProcessStartInfo()
