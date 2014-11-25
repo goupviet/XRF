@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 using System.Windows;
 using Xrf.IO.Video;
 
@@ -19,52 +17,40 @@ namespace Xrf.IO.Temporary
         /// </summary>
         public string Location { get; set; }
 
-        public static readonly DependencyProperty FileListProperty = DependencyProperty.Register("FileList", 
-            typeof(List<string>), typeof(Scratchdisk));
+        public static readonly DependencyProperty FramesProperty = DependencyProperty.Register("Frames", typeof(ObservableCollection<Frame>), typeof(Scratchdisk));
 
-        public List<string> FileList
+        /// <summary>
+        /// A list of images with timecodes and frame indices.
+        /// </summary>
+        public ObservableCollection<Frame> Frames
         {
-            get { return (List<string>)GetValue(FileListProperty); }
-            set { SetValue(FileListProperty, value); }
+            get { return (ObservableCollection<Frame>)GetValue(FramesProperty); }
+            set { SetValue(FramesProperty, value); }
         }
-
-        public event ScratchdiskFileAddedEventHandler FileAdded;
-        public event ScratchdiskFileDeletedEventHandler FileDeleted;
 
         private FileSystemWatcher _watcher;
 
         /// <summary>
         /// Creates a new scratchdisk in the temporary folder.
         /// </summary>
+        //[PermissionSet(SecurityAction.Demand, Name="FullTrust")]
         public Scratchdisk()
         {
             Location = GetTemporaryDirectory();
-            FileList = new List<string>();
+            Frames = new ObservableCollection<Frame>();
 
             // Watch for files added to the scratchdisk location and add them to the internal file table.
             _watcher = new FileSystemWatcher
             {
                 Path = Location,
-                Filter = @"*.jpg",
-                NotifyFilter = NotifyFilters.CreationTime,
-                IncludeSubdirectories = true,
+                Filter = @"*.jpeg",
+                NotifyFilter = NotifyFilters.FileName,
+                IncludeSubdirectories = false,
+                InternalBufferSize = 65536
             };
 
             _watcher.Created += new FileSystemEventHandler(Watcher_Created);
             _watcher.EnableRaisingEvents = true;
-        }
-
-        /// <summary>
-        /// Provides access to each file dependent on file table index.
-        /// </summary>
-        /// <param name="i">File table index.</param>
-        /// <returns>The file path for the file.</returns>
-        public string this[int i]
-        {
-            get
-            {
-                return FileList[i];
-            }
         }
 
         /// <summary>
@@ -81,31 +67,24 @@ namespace Xrf.IO.Temporary
         /// <summary>
         /// Adds a file name to the internal file table.
         /// </summary>
-        /// <param name="filename">The filename to add.</param>
-        private void AddFileReference(string filename)
+        /// <param name="path">The filename to add.</param>
+        private void AddFileReference(string path)
         {
-            FileList.Add(filename);
-            var e = new ScratchdiskFileEventArgs(filename, ScratchdiskFileOperations.Added);
+            string name = Path.GetFileNameWithoutExtension(path);
+            int framenumber = ParseFrameNumber(name);
 
-            OnFileAdded(e);
+            var newframe = new Frame(framenumber, path);
+            Frames.Add(newframe);
+        }
+
+        private int ParseFrameNumber(string filename)
+        {
+            var resultString = Regex.Match(filename, @"\d+").Value;
+            return Int32.Parse(resultString);
         }
 
         /// <summary>
-        /// Deletes the specified file and removes it's reference from the internal file table.
-        /// </summary>
-        /// <param name="filename">The filename to remove.</param>
-        private void DeleteFile(string filename)
-        {
-            File.Delete(filename);
-            FileList.Remove(filename);
-
-            var e = new ScratchdiskFileEventArgs(filename, ScratchdiskFileOperations.Deleted);
-            OnFileDeleted(e);
-        }
-
-        /// <summary>
-        /// Estimates the size of the scratchdisk required. Usually about 80% of the original file size, or 10% if the scratchdisk uses 1/8 frame-size thumbnails.
-        /// Uses MediaInfo to get the size of the video stream, disregards the audio stream.
+        /// Estimates the size of the scratchdisk required.
         /// </summary>
         /// <param name="path">The movie file that will be used to populate the scratchdisk.</param>
         /// <returns>The approximate size of the scratchdisk in bytes.</returns>
@@ -128,26 +107,13 @@ namespace Xrf.IO.Temporary
         public void Dispose()
         {
             Directory.Delete(Location);
-            FileList.Clear();
+            Frames.Clear();
             _watcher.Dispose();
         }
 
         private void Watcher_Created(object sender, FileSystemEventArgs e)
         {
-            AddFileReference(e.FullPath);
+            this.Dispatcher.Invoke(new Action(() => AddFileReference(e.FullPath)));
         }
-
-        protected virtual void OnFileAdded(ScratchdiskFileEventArgs e)
-        {
-            if (FileAdded != null)
-                FileAdded(this, e);
-        }
-
-        protected virtual void OnFileDeleted(ScratchdiskFileEventArgs e)
-        {
-            if (FileDeleted != null)
-                FileDeleted(this, e);
-        }
-
     }
 }

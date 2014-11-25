@@ -130,7 +130,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="IO\Temporary\ScratchdiskEvents.cs" />
+    <Compile Include="IO\Video\Frame.cs" />
     <Compile Include="ViewModels\CommandHandler.cs" />
     <Compile Include="Views\Dialogs.cs" />
     <Compile Include="Views\SplashWindow.xaml.cs">

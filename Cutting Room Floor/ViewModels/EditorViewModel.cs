@@ -1,23 +1,17 @@
-﻿using Microsoft.Win32;
-using System;
-using System.Collections.ObjectModel;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using Xrf.IO.Video;
 using Xrf.IO.Temporary;
+using Xrf.IO.Video;
 using Xrf.Views;
-using System.Drawing;
 
 namespace Xrf.ViewModels
 {
     public class EditorViewModel : DependencyObject
     {
         private string MovieFilePath;
-        private Scratchdisk ThumbnailScratchdisk;
 
         public static readonly DependencyProperty CurrentFrameProperty = DependencyProperty.Register("CurrentFrame", typeof(ImageSource), typeof(EditorViewModel));
         public ImageSource CurrentFrame
@@ -47,8 +41,18 @@ namespace Xrf.ViewModels
             set { SetValue(StatusTextProperty, value); }
         }
 
+        public static readonly DependencyProperty ThumbnailScratchdiskProperty = DependencyProperty.Register("ThumbnailScratchdisk", typeof(Scratchdisk), typeof(EditorViewModel));
+        public Scratchdisk ThumbnailScratchdisk
+        {
+            get { return (Scratchdisk)GetValue(ThumbnailScratchdiskProperty); }
+            set { SetValue(ThumbnailScratchdiskProperty, value); }
+        }
+
         public EditorViewModel()
         {
+            // Create a temporary scratchdisk to store thumbnails.
+            ThumbnailScratchdisk = new Scratchdisk();
+
             IsEditorReady = true;
         }
 
@@ -92,13 +96,11 @@ namespace Xrf.ViewModels
             // Cancel loading if the dialog is closed.
             if (string.IsNullOrEmpty(MovieFilePath)) return;
 
-            // Create a temporary scratchdisk to store thumbnails.
-            ThumbnailScratchdisk = new Scratchdisk();
-
             // Create a new FrameExtractor configured to extract sqcif thumbnails.
             FrameExtractor thumbnailExtractor = new FrameExtractor(MovieFilePath, ThumbnailScratchdisk, FrameExtractionMode.Thumbnails);
             
             thumbnailExtractor.Extract();
+
             IsEditorReady = true;
         }
         #endregion

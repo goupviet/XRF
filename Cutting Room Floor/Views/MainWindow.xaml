@@ -7,7 +7,15 @@
                      xmlns:fluid="clr-namespace:FluidKit.Controls;assembly=FluidKit"
                      xmlns:ad="http://schemas.xceed.com/wpf/xaml/avalondock"
                      Width="1366" Height="768"
-                     Title="Cutting Room Floor" Icon="../xrf.ico" WindowState="Maximized">
+                     Title="Cutting Room Floor [XRF]" Icon="../xrf.ico" WindowState="Maximized">
+    
+    <fluent:RibbonWindow.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="ThumbnailTemplate">
+                <Image Width="128" Height="96" Source="{Binding ImageUrl}"/>
+            </DataTemplate>
+        </ResourceDictionary>
+    </fluent:RibbonWindow.Resources>
     
     <DockPanel LastChildFill="True">
         <fluent:Ribbon DockPanel.Dock="Top">
@@ -110,16 +118,15 @@
                     </ad:LayoutPanel>
                     <ad:LayoutAnchorablePaneGroup x:Name="bottomAnchorableGroup">
                         <ad:LayoutAnchorablePane DockHeight="150">
-                            <ad:LayoutAnchorable Title="Timeline" CanAutoHide="True" CanClose="False" CanHide="True">
-                                <fluid:ItemSkimmingPanel>
-                                    <ItemsControl ItemsSource="{Binding Source=ThumbnailScratchdisk, Path=FileList}">
-                                        <ItemsControl.ItemTemplate>
-                                            <DataTemplate>
-                                                <Image Source="{Binding}" Width="128" Height="96" Stretch="UniformToFill" />
-                                            </DataTemplate>
-                                        </ItemsControl.ItemTemplate>
-                                    </ItemsControl>
-                                </fluid:ItemSkimmingPanel>
+                            <ad:LayoutAnchorable Title="Timeline" CanAutoHide="False" CanClose="False" CanHide="False">
+                                <!--TODO: FIX THE DANG ASS BINDING-->
+                                <ItemsControl DataContext="{Binding Source=ThumbnailScratchdisk}" ItemsSource="{Binding Frames, UpdateSourceTrigger=PropertyChanged}" ItemTemplate="{StaticResource ThumbnailTemplate}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <VirtualizingStackPanel Orientation="Horizontal"></VirtualizingStackPanel>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                </ItemsControl>
                             </ad:LayoutAnchorable>
                         </ad:LayoutAnchorablePane>
                     </ad:LayoutAnchorablePaneGroup>
