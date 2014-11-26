@@ -120,10 +120,10 @@
                         <ad:LayoutAnchorablePane DockHeight="150">
                             <ad:LayoutAnchorable Title="Timeline" CanAutoHide="False" CanClose="False" CanHide="False">
                                 <!--TODO: FIX THE DANG ASS BINDING-->
-                                <ItemsControl DataContext="{Binding Source=ThumbnailScratchdisk}" ItemsSource="{Binding Frames, UpdateSourceTrigger=PropertyChanged}" ItemTemplate="{StaticResource ThumbnailTemplate}">
+                                <ItemsControl DataContext="{Binding ThumbnailScratchdisk}" ItemsSource="{Binding Frames}" ItemTemplate="{StaticResource ThumbnailTemplate}">
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
-                                            <VirtualizingStackPanel Orientation="Horizontal"></VirtualizingStackPanel>
+                                            <fluid:ItemSkimmingPanel />
                                         </ItemsPanelTemplate>
                                     </ItemsControl.ItemsPanel>
                                 </ItemsControl>

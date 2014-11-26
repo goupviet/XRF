@@ -17,16 +17,10 @@ namespace Xrf.IO.Temporary
         /// </summary>
         public string Location { get; set; }
 
-        public static readonly DependencyProperty FramesProperty = DependencyProperty.Register("Frames", typeof(ObservableCollection<Frame>), typeof(Scratchdisk));
-
         /// <summary>
         /// A list of images with timecodes and frame indices.
         /// </summary>
-        public ObservableCollection<Frame> Frames
-        {
-            get { return (ObservableCollection<Frame>)GetValue(FramesProperty); }
-            set { SetValue(FramesProperty, value); }
-        }
+        public ObservableCollection<Frame> Frames { get; set; }
 
         private FileSystemWatcher _watcher;
 

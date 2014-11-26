@@ -1,52 +1,22 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
-using System.Windows;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using System.Windows.Media;
+using Xrf.IO.Editor;
 using Xrf.IO.Temporary;
 using Xrf.IO.Video;
 using Xrf.Views;
 
 namespace Xrf.ViewModels
 {
-    public class EditorViewModel : DependencyObject
+    public class EditorViewModel
     {
         private string MovieFilePath;
 
-        public static readonly DependencyProperty CurrentFrameProperty = DependencyProperty.Register("CurrentFrame", typeof(ImageSource), typeof(EditorViewModel));
-        public ImageSource CurrentFrame
-        {
-            get { return (ImageSource)GetValue(CurrentFrameProperty); }
-            set { SetValue(CurrentFrameProperty, value); }
-        }
-
-        public static readonly DependencyProperty IsReadyProperty = DependencyProperty.Register("IsEditorReady", typeof(bool), typeof(EditorViewModel));
-        public bool IsEditorReady
-        {
-            get { return (bool)GetValue(IsReadyProperty); }
-            set { SetValue(IsReadyProperty, value); }
-        }
-
-        public static readonly DependencyProperty ZoomFactorProperty = DependencyProperty.Register("ZoomFactor", typeof(float), typeof(EditorViewModel));
-        public float ZoomFactor
-        {
-            get { return (float)GetValue(ZoomFactorProperty); }
-            set { SetValue(ZoomFactorProperty, value); }
-        }
-
-        public static readonly DependencyProperty StatusTextProperty = DependencyProperty.Register("StatusText", typeof(string), typeof(EditorViewModel));
-        public string StatusText
-        {
-            get { return (string)GetValue(StatusTextProperty); }
-            set { SetValue(StatusTextProperty, value); }
-        }
-
-        public static readonly DependencyProperty ThumbnailScratchdiskProperty = DependencyProperty.Register("ThumbnailScratchdisk", typeof(Scratchdisk), typeof(EditorViewModel));
-        public Scratchdisk ThumbnailScratchdisk
-        {
-            get { return (Scratchdisk)GetValue(ThumbnailScratchdiskProperty); }
-            set { SetValue(ThumbnailScratchdiskProperty, value); }
-        }
+        public ImageSource CurrentFrame { get; set; }
+        public bool IsEditorReady { get; set; }
+        public float ZoomFactor { get; set; }
+        public string StatusText { get; set; }
+        public Scratchdisk ThumbnailScratchdisk { get; set; }
+        public ImageEditor Editor { get; set; }
 
         public EditorViewModel()
         {
