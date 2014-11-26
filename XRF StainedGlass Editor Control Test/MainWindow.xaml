@@ -1,9 +1,0 @@
-﻿<Window x:Class="XRF_StainedGlass_Editor_Control_Test.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:xrfsg="clr-namespace:Xrf.StainedGlass.Editor;assembly=Xrf.StainedGlass.Editor"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        <xrfsg:StainedGlassEditor />
-    </Grid>
-</Window>
