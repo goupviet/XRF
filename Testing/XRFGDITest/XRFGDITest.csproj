@@ -78,7 +78,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Xrf.Shaders\Xrf.Shaders.csproj">
+    <ProjectReference Include="..\..\Shared\Xrf.Shaders\Xrf.Shaders.csproj">
       <Project>{1ed3c029-bb4a-4007-9775-874bda914e96}</Project>
       <Name>Xrf.Shaders</Name>
     </ProjectReference>
