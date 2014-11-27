@@ -7,12 +7,12 @@ using System.Windows;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Cutting Room Floor")]
-[assembly: AssemblyDescription("Frame-by-frame analog-style video editor.")]
+[assembly: AssemblyTitle("Cutting Room Floor XRF")]
+[assembly: AssemblyDescription("Extensible, moddable, and hackable linear video frame editor and pixel shader.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("callum.me")]
-[assembly: AssemblyProduct("Cutting Room Floor")]
-[assembly: AssemblyCopyright("Copyright ©  2014")]
+[assembly: AssemblyCompany("6bit Spaceship Studios")]
+[assembly: AssemblyProduct("Cutting Room Floor XRF")]
+[assembly: AssemblyCopyright("© 2014-2015 Callum Booth (6bit Spaceship Studios). All Rights Reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -53,3 +53,4 @@ using System.Windows;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: NeutralResourcesLanguageAttribute("en-GB")]
