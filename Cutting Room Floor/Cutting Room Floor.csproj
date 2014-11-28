@@ -133,12 +133,12 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="IO\Editor\ImageEditor.cs" />
     <Compile Include="IO\Video\Frame.cs" />
+    <Compile Include="IO\Video\Movie.cs" />
     <Compile Include="ViewModels\CommandHandler.cs" />
     <Compile Include="Views\Dialogs.cs" />
     <Compile Include="Views\SplashWindow.xaml.cs">
       <DependentUpon>SplashWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="IO\Video\ExtractionEventHandlers.cs" />
     <Compile Include="IO\Video\MediaInfo.cs" />
     <Compile Include="IO\Temporary\Scratchdisk.cs" />
     <Compile Include="IO\Video\FrameExtractor.cs" />

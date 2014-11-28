@@ -12,7 +12,7 @@
     <fluent:RibbonWindow.Resources>
         <ResourceDictionary>
             <DataTemplate x:Key="ThumbnailTemplate">
-                <Image Width="128" Height="96" Source="{Binding ImageUrl}"/>
+                <Image Width="128" Height="96" Source="{Binding ImageUrl}" xceed:TimelinePanel.Date="{Binding Index}"/>
             </DataTemplate>
         </ResourceDictionary>
     </fluent:RibbonWindow.Resources>
@@ -41,8 +41,9 @@
             </fluent:RibbonTabItem>
             
             <fluent:RibbonTabItem Header="Frame" Group="{Binding ElementName=editGroup}">
-                <fluent:RibbonGroupBox Header="Painting">
+                <fluent:RibbonGroupBox Header="Drawing">
                     <fluent:Button Header="Open Frame" KeyTip="F" SizeDefinition="Large" />
+                    <fluent:Button Header="Shapes" KeyTip="S" SizeDefinition="Large" />
                 </fluent:RibbonGroupBox>
                 <fluent:RibbonGroupBox Header="Shaders">
                     <fluent:InRibbonGallery ResizeMode="Both" GroupBy="Tag" MaxItemsInRow="6" MaxItemsInDropDownRow="8">
@@ -74,7 +75,7 @@
             </fluent:RibbonTabItem>
 
             <fluent:Ribbon.ContextualGroups>
-                <fluent:RibbonContextualTabGroup Header="Editor" Visibility="{Binding Path=IsEditorReady, Converter={StaticResource BoolToVis}}" x:Name="editGroup" Background="{DynamicResource MainAccentBrush}" BorderBrush="{DynamicResource SubAccentBrush}" />
+                <fluent:RibbonContextualTabGroup Header="Editor" Visibility="{Binding IsEditorReady, Converter={StaticResource BoolToVis}}" x:Name="editGroup" Background="{DynamicResource MainAccentBrush}" BorderBrush="{DynamicResource SubAccentBrush}" />
             </fluent:Ribbon.ContextualGroups>
 
             <fluent:Ribbon.Menu>
@@ -104,28 +105,40 @@
                         <ad:LayoutDocumentPaneGroup x:Name="originalFrameDocumentGroup">
                             <ad:LayoutDocumentPane>
                                 <ad:LayoutDocument Title="Original Frame" CanClose="False">
-                                    <Image Source="{Binding CurrentFrame}" Stretch="None" />
+                                   <Image DataContext="{Binding CurrentEditor}" Source="{Binding OriginalImage}" Stretch="None">
+                                        <xceed:MagnifierManager.Magnifier>
+                                            <xceed:Magnifier Radius="100" ZoomFactor=".4" BorderBrush="AliceBlue" BorderThickness="1"/>
+                                        </xceed:MagnifierManager.Magnifier>
+                                     </Image>
                                 </ad:LayoutDocument>
                             </ad:LayoutDocumentPane>
                         </ad:LayoutDocumentPaneGroup>
                         <ad:LayoutDocumentPaneGroup x:Name="editedFrameDocumentGroup">
                             <ad:LayoutDocumentPane>
                                 <ad:LayoutDocument Title="Edited Frame" CanClose="False">
-
+                                    <Image DataContext="{Binding CurrentEditor}" Source="{Binding EditedImage}" Stretch="None">
+                                        <xceed:MagnifierManager.Magnifier>
+                                            <xceed:Magnifier Radius="100" ZoomFactor=".4" BorderBrush="AliceBlue" BorderThickness="1"/>
+                                        </xceed:MagnifierManager.Magnifier>
+                                    </Image>
                                 </ad:LayoutDocument>
                             </ad:LayoutDocumentPane>
                         </ad:LayoutDocumentPaneGroup>
                     </ad:LayoutPanel>
-                    <ad:LayoutAnchorablePaneGroup x:Name="bottomAnchorableGroup">
-                        <ad:LayoutAnchorablePane DockHeight="150">
+                    <ad:LayoutAnchorablePaneGroup DockHeight="130" DockMinHeight="100" x:Name="bottomAnchorableGroup">
+                        <ad:LayoutAnchorablePane>
                             <ad:LayoutAnchorable Title="Timeline" CanAutoHide="False" CanClose="False" CanHide="False">
-                                <ItemsControl DataContext="{Binding ThumbnailScratchdisk}" ItemsSource="{Binding Frames}" ItemTemplate="{StaticResource ThumbnailTemplate}">
-                                    <ItemsControl.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <fluid:ItemSkimmingPanel />
-                                        </ItemsPanelTemplate>
-                                    </ItemsControl.ItemsPanel>
-                                </ItemsControl>
+                                <xceed:BusyIndicator IsBusy="{Binding IsExtractingThumbnails}" BusyContent="Extracting Thumbnails..." >
+                                    <ScrollViewer VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Auto">
+                                        <ItemsControl DataContext="{Binding ThumbnailScratchdisk}" ItemsSource="{Binding Frames}" ItemTemplate="{StaticResource ThumbnailTemplate}">
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <xceed:TimelinePanel Orientation="Horizontal" />
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+                                        </ItemsControl>
+                                    </ScrollViewer>
+                                </xceed:BusyIndicator>
                             </ad:LayoutAnchorable>
                         </ad:LayoutAnchorablePane>
                     </ad:LayoutAnchorablePaneGroup>
