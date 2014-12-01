@@ -306,7 +306,7 @@ namespace Xrf
 		return 0;
 	}
 
-	int GetFrameRate(const char *szPath)
+	double GetFrameRate(const char *szPath)
 	{
 
 	}
