@@ -15,11 +15,6 @@ Features
 - Customisable UI using XAML/Blend and MVVM bindings.
 - Powered by FFmpeg.
 
-XRF StainedGlass
-----------------
-
-XRF includes a feature named StainedGlass, a live shader composition environment, allowing new shaders to be created or existing shaders modified using XSSL, XRF Shader Sequencing Language. A stripped down version of StainedGlass, only consisiting of the editor, is built-in to XRF. The external version includes the editor, line-by-line output comparison, and effect fine-tuning GUIs.
-
 Tech
 ----
 
