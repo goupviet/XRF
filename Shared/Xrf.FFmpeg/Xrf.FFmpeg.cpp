@@ -53,6 +53,11 @@ namespace Xrf
 		fclose(pFile);
 	}
 
+	/**
+		<summary>Extracts and saves all frames from a given video file.</summary>
+		<param name='*szPath'>The path of the file to extract frames from.</param>
+		<param name='*szDestination'>The directory to save files to.</param>
+	*/
 	int ExtractAllFrames(const char *szPath, const char *szDestination)
 	{
 		AVFormatContext *pFormatCtx = NULL;
@@ -182,6 +187,13 @@ namespace Xrf
 		return 0;
 	}
 
+	/**
+		<summary>Extracts, scales and saves all frames from a given video file.</summary>
+		<param name='*szPath'>The path of the file to extract frames from.</param>
+		<param name='*szDestination'>The directory to save files to.</param>
+		<param name='scaleWidth'>The width to scale the frame to.</param>
+		<param name='scaleHeight'>The height to scale the frame to.</param>
+	*/
 	int ExtractAllScaledFrames(const char *szPath, const char *szDestination, int scaleWidth, int scaleHeight)
 	{
 		AVFormatContext *pFormatCtx = NULL;
@@ -306,16 +318,31 @@ namespace Xrf
 		return 0;
 	}
 
+	/**
+		<summary>Calculates framerate from a video file.</summary>
+		<param name='*szPath'>The video file path.</param>
+	*/
 	double GetFrameRate(const char *szPath)
 	{
 
 	}
 
-	int ExtractSpecificFrame(const char *szPath, const char *szDestination)
+	/**
+	<summary>Extracts a single frame from a video file.</summary>
+	<param name='frameIndex'>The position of the frame to extract.</param>
+	<param name='*szPath'>The video file path.</param>
+	<param name='*szDestination'>The directory to extract the frame to.</param>
+	*/
+	int ExtractSpecificFrame(int frameIndex, const char *szPath, const char *szDestination)
 	{
 
 	}
 
+	/**
+		<summary>Joins a filename and a directory into one path.</summary>
+		<param name='*szPath'>The filename.</param>
+		<param name='*szDir'>The directory to join the filename to.</param>
+	*/
 	const char* JoinPaths(const char *szPath, const char *szDir)
 	{
 		fs::path dir(szDir);
