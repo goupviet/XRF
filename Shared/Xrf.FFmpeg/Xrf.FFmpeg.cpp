@@ -16,6 +16,8 @@
 
 #include <boost\filesystem.hpp>
 
+#include "Xrf.FFmpeg.h"
+
 using namespace std;
 namespace fs = boost::filesystem;
 
@@ -58,7 +60,7 @@ namespace Xrf
 		<param name='*szPath'>The path of the file to extract frames from.</param>
 		<param name='*szDestination'>The directory to save files to.</param>
 	*/
-	int ExtractAllFrames(const char *szPath, const char *szDestination)
+	int FFmpeg::ExtractAllFrames(const char *szPath, const char *szDestination)
 	{
 		AVFormatContext *pFormatCtx = NULL;
 		int i, videoStream;
@@ -194,7 +196,7 @@ namespace Xrf
 		<param name='scaleWidth'>The width to scale the frame to.</param>
 		<param name='scaleHeight'>The height to scale the frame to.</param>
 	*/
-	int ExtractAllScaledFrames(const char *szPath, const char *szDestination, int scaleWidth, int scaleHeight)
+	int FFmpeg::ExtractAllScaledFrames(const char *szPath, const char *szDestination, int scaleWidth, int scaleHeight)
 	{
 		AVFormatContext *pFormatCtx = NULL;
 		int i, videoStream;
@@ -322,7 +324,7 @@ namespace Xrf
 		<summary>Calculates framerate from a video file.</summary>
 		<param name='*szPath'>The video file path.</param>
 	*/
-	double GetFrameRate(const char *szPath)
+	double FFmpeg::GetFrameRate(const char *szPath)
 	{
 
 	}
@@ -333,7 +335,7 @@ namespace Xrf
 	<param name='*szPath'>The video file path.</param>
 	<param name='*szDestination'>The directory to extract the frame to.</param>
 	*/
-	int ExtractSpecificFrame(int frameIndex, const char *szPath, const char *szDestination)
+	int FFmpeg::ExtractSpecificFrame(int frameIndex, const char *szPath, const char *szDestination)
 	{
 
 	}
