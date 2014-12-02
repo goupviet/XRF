@@ -2,7 +2,7 @@ Cutting Room Floor [XRF]
 =========
 
 
-An extensible, moddable, and hackable linear video frame editor and pixel shader, written in C#, and powered by FFmpeg, WPF, and superhuman-amounts of caffeine.
+An extensible, moddable, and hackable linear video frame editor and pixel shader, written in C#, and powered by a custom FFmpeg implementation, WPF, and superhuman-amounts of caffeine.
 
 Features
 --------
@@ -21,8 +21,7 @@ Tech
 XRF uses the following technologies and packages:
 
 * C# .NET + WPF / XAML + MVVM
-* [FFmpeg] - commandline media editing (frame extraction and re-interpolation)
-* [MediaInfo] - media metadata library
+* libavformat, libavutil, libavcodec, and libswscale
 * [WPF Sound Visualization Library] - WPF sound editing control library
 * [Extended WPF Toolkit] - WPF (better) control library
 * [Fluent Ribbon] - ribbon toolbar control
@@ -39,8 +38,6 @@ Twitter
 *shameless promotion: [@TheBoothy]*
 
 
-[FFmpeg]:https://www.ffmpeg.org
-[MediaInfo]:http://mediaarea.net
 [WPF Sound Visualization Library]:http://wpfsvl.codeplex.com
 [Extended WPF Toolkit]:http://wpftoolkit.codeplex.com
 [Fluent Ribbon]:http://fluent.codeplex.com
