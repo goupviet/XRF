@@ -11,9 +11,10 @@ namespace Xrf
 	class FFmpeg
 	{
 	public:
-		static VISIBLE int ExtractAllFrames(const char *szPath, const char *szDestination);
-		static VISIBLE int ExtractAllScaledFrames(const char *szPath, const char *szDestination, int scaleWidth, int scaleHeight);
+		// Extracts a version of all frames, scaled to the specified scale factor, from the specified video path into the destination directory
+		static VISIBLE int ExtractAllFrames(const char *szPath, const char *szDestination, float scaleFactor = 1.0);
+
+		// Gets the framerate from the specified video file.
 		static VISIBLE double GetFrameRate(const char *szPath);
-		static VISIBLE int ExtractSpecificFrame(int frameIndex, const char *szPath, const char *szDestination)
 	};
 }
