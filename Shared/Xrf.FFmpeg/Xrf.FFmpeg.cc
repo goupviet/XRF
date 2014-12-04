@@ -2,17 +2,20 @@
 //
 
 #include "stdafx.h"
-#pragma comment (lib, "avformat.lib")
 #pragma comment (lib, "avcodec.lib")
+#pragma comment (lib, "avformat.lib")
+#pragma comment (lib, "avutil.lib")
 #pragma comment (lib, "swscale.lib")
 
 extern "C"
 {
 	#include <libavcodec\avcodec.h>
 	#include <libavformat\avformat.h>
+	#include <libavutil\avutil.h>
 	#include <libswscale\swscale.h>
 }
 
+#include <string>
 #include "Xrf.FFmpeg.h"
 
 namespace Xrf
@@ -24,7 +27,9 @@ namespace Xrf
 	*/
 	const char* JoinPaths(const char* szPath, const char* szDir)
 	{
-		
+		std::string buf(szDir);
+		buf.append(szPath);
+		return buf.c_str();
 	}
 
 	/** 
@@ -42,7 +47,11 @@ namespace Xrf
 
 		FILE* pFile;
 		errno_t openError = fopen_s(&pFile, szPath, "wb");
-		if (pFile == NULL) return;
+
+		if (pFile == NULL)
+		{
+			return;
+		}
 
 		//Write header
 		int width = pFrame->width;
@@ -52,7 +61,9 @@ namespace Xrf
 
 		//Write pixel data
 		for (int y = 0; y < height; y++)
+		{
 			fwrite(pFrame->data[0] + y * pFrame->linesize[0], 1, width * 3, pFile);
+		}
 
 		// Close file
 		fclose(pFile);
@@ -97,11 +108,13 @@ namespace Xrf
 		size_t i;
 		int videoStream = -1;
 		for (i = 0; i < pFormatCtx->nb_streams; i++)
+		{
 			if (pFormatCtx->streams[i]->codec->codec_type == AVMEDIA_TYPE_VIDEO)
 			{
 				videoStream = i;
 				break;
 			}
+		}
 		if (videoStream == -1)
 		{
 			fprintf(stderr, "libavformat: No video stream found!\n");
@@ -154,15 +167,13 @@ namespace Xrf
 		uint8_t* buffer = static_cast <uint8_t *> (av_malloc(numBytes * sizeof(uint8_t)));
 
 		struct SwsContext* sws_ctx = sws_getContext(pCodecCtx->width,
-		                         pCodecCtx->height,
-		                         pCodecCtx->pix_fmt,
-		                         scaleWidth,
-		                         scaleHeight,
-		                         PIX_FMT_RGB24,
-		                         SWS_BILINEAR,
-		                         nullptr,
-		                         nullptr,
-		                         nullptr);
+													pCodecCtx->height,
+													pCodecCtx->pix_fmt,
+													scaleWidth,
+													scaleHeight,
+													PIX_FMT_RGB24,
+													SWS_BILINEAR,
+													nullptr, nullptr, nullptr);
 
 		// Assign appropriate parts of buffer to image planes in pFrameRGB
 		// Note that pFrameRGB is an AVFrame, but AVFrame is a superset
@@ -198,7 +209,9 @@ namespace Xrf
 
 					// Save the frame to disk
 					if (++i <= 5)
+					{
 						SaveFrame(pFrameRGB, i, szDestination);
+					}
 				}
 			}
 

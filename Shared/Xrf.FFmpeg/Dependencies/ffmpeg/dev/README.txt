@@ -1,13 +1,13 @@
-This is a FFmpeg Win32 shared build by Kyle Schwarz.
+This is a FFmpeg Win64 shared build by Kyle Schwarz.
 
 Zeranoe's FFmpeg Builds Home Page: <http://ffmpeg.zeranoe.com/builds/>
 
-This build was compiled on: Dec  1 2014, at: 02:29:27
+This build was compiled on: Dec  4 2014, at: 00:03:54
 
-FFmpeg version: 2014-12-01 git-928322c
+FFmpeg version: 2014-12-04 git-5fe026f
   libavutil      54. 15.100 / 54. 15.100
   libavcodec     56. 13.100 / 56. 13.100
-  libavformat    56. 15.101 / 56. 15.101
+  libavformat    56. 15.102 / 56. 15.102
   libavdevice    56.  3.100 / 56.  3.100
   libavfilter     5.  2.103 /  5.  2.103
   libswscale      3.  1.101 /  3.  1.101
