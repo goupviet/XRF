@@ -70,10 +70,14 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <ExtensionsToDeleteOnClean>*.dll;$(ExtensionsToDeleteOnClean)</ExtensionsToDeleteOnClean>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(ProjectDir)$(Platform)\$(Configuration)\</OutDir>
+    <ExtensionsToDeleteOnClean>*.dll;$(ExtensionsToDeleteOnClean)</ExtensionsToDeleteOnClean>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -88,13 +92,23 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;XRFFFMPEG_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>Dependencies\boost_1_57_0;Dependencies\ffmpeg\dev\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Dependencies\ffmpeg\x86\dev\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>Dependencies\boost_1_57_0\stage\lib;Dependencies\ffmpeg\dev\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>Dependencies\ffmpeg\x86\dev\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy "$(ProjectDir)Dependencies\ffmpeg\x86\shared\bin\avcodec-56.dll" "$(OutDir)"
+xcopy "$(ProjectDir)Dependencies\ffmpeg\x86\shared\bin\avdevice-56.dll" "$(OutDir)"
+xcopy "$(ProjectDir)Dependencies\ffmpeg\x86\shared\bin\avfilter-5.dll" "$(OutDir)"
+xcopy "$(ProjectDir)Dependencies\ffmpeg\x86\shared\bin\avformat-56.dll" "$(OutDir)"
+xcopy "$(ProjectDir)Dependencies\ffmpeg\x86\shared\bin\avutil-54.dll" "$(OutDir)"
+xcopy "$(ProjectDir)Dependencies\ffmpeg\x86\shared\bin\postproc-53.dll" "$(OutDir)"
+xcopy "$(ProjectDir)Dependencies\ffmpeg\x86\shared\bin\swresample-1.dll" "$(OutDir)"
+xcopy "$(ProjectDir)Dependencies\ffmpeg\x86\shared\bin\swscale-3.dll" "$(OutDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -103,13 +117,30 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;XRFFFMPEG_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>Dependencies\ffmpeg\dev\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Dependencies\ffmpeg\x64\dev\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerOutput>All</AssemblerOutput>
+      <AdditionalOptions>/LD %(AdditionalOptions)</AdditionalOptions>
+      <EnablePREfast>false</EnablePREfast>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>Dependencies\ffmpeg\dev\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>Dependencies\ffmpeg\x64\dev\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy "$(ProjectDir)Dependencies\ffmpeg\x64\shared\bin\avcodec-56.dll" "$(OutDir)"
+xcopy "$(ProjectDir)Dependencies\ffmpeg\x64\shared\bin\avdevice-56.dll" "$(OutDir)"
+xcopy "$(ProjectDir)Dependencies\ffmpeg\x64\shared\bin\avfilter-5.dll" "$(OutDir)"
+xcopy "$(ProjectDir)Dependencies\ffmpeg\x64\shared\bin\avformat-56.dll" "$(OutDir)"
+xcopy "$(ProjectDir)Dependencies\ffmpeg\x64\shared\bin\avutil-54.dll" "$(OutDir)"
+xcopy "$(ProjectDir)Dependencies\ffmpeg\x64\shared\bin\postproc-53.dll" "$(OutDir)"
+xcopy "$(ProjectDir)Dependencies\ffmpeg\x64\shared\bin\swresample-1.dll" "$(OutDir)"
+xcopy "$(ProjectDir)Dependencies\ffmpeg\x64\shared\bin\swscale-3.dll" "$(OutDir)"</Command>
+      <Message>Copy shared FFmpeg DLLs to output directory</Message>
+    </PostBuildEvent>
+    <Manifest>
+      <GenerateCatalogFiles>true</GenerateCatalogFiles>
+    </Manifest>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -148,7 +179,7 @@
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="Xrf.FFmpeg.h" />
+    <ClInclude Include="Xrf.FFmpeg.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -171,7 +202,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Xrf.FFmpeg.cc" />
+    <ClCompile Include="Xrf.FFmpeg.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

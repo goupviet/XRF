@@ -21,7 +21,7 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Xrf.FFmpeg.h">
+    <ClInclude Include="Xrf.FFmpeg.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -32,7 +32,7 @@
     <ClCompile Include="dllmain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Xrf.FFmpeg.cc">
+    <ClCompile Include="Xrf.FFmpeg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
