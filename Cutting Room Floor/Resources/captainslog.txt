@@ -1,0 +1,5 @@
+captain's log
+
+041114 [retroactive entry] github says i created the project on this date, but i know that i was working on this before uploading to github. at this point, i do not know how old this application is.
+
+091214 i have been writing this application for at least a month now. i still don't know how to use git, with the majority of my commits being too large to be usable, and i genuinely fear for my source tree's life. c++ continues to allude me, the everlasting presence of accessviolationexceptions is a constant frustration to me, and stackoverflow.com just gets annoyed at me when i ask for help. i have resorted to including easter eggs, such as this text file, instead of fixing the glaring bugs that plague me.

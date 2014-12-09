@@ -116,6 +116,7 @@
       <AssemblerOutput>NoListing</AssemblerOutput>
       <AdditionalOptions>/LD %(AdditionalOptions)</AdditionalOptions>
       <EnablePREfast>false</EnablePREfast>
+      <CallingConvention>StdCall</CallingConvention>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

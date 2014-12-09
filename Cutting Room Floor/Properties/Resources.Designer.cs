@@ -61,6 +61,16 @@ namespace Xrf.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to captain&apos;s log
+        ///091214 i have been writing this application for at least a month now. i still don&apos;t know how to use git, with the majority of my commits being too large to be usable. c++ continues to allude me, the everlasting presence of accessviolationexceptions is a constant frustration to me, and stackoverflow.com just gets annoyed at me when i ask for help..
+        /// </summary>
+        internal static string captainslog {
+            get {
+                return ResourceManager.GetString("captainslog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reticulating splines...
         ///Relabelling VHS tapes...
         ///Calculating specularity...
