@@ -71,6 +71,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <ExtensionsToDeleteOnClean>*.dll;$(ExtensionsToDeleteOnClean)</ExtensionsToDeleteOnClean>
+    <OutDir>$(ProjectDir)$(Platform)\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -100,14 +101,8 @@
       <AdditionalLibraryDirectories>Dependencies\ffmpeg\x86\dev\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(ProjectDir)Dependencies\ffmpeg\x86\shared\bin\avcodec-56.dll" "$(OutDir)"
-xcopy "$(ProjectDir)Dependencies\ffmpeg\x86\shared\bin\avdevice-56.dll" "$(OutDir)"
-xcopy "$(ProjectDir)Dependencies\ffmpeg\x86\shared\bin\avfilter-5.dll" "$(OutDir)"
-xcopy "$(ProjectDir)Dependencies\ffmpeg\x86\shared\bin\avformat-56.dll" "$(OutDir)"
-xcopy "$(ProjectDir)Dependencies\ffmpeg\x86\shared\bin\avutil-54.dll" "$(OutDir)"
-xcopy "$(ProjectDir)Dependencies\ffmpeg\x86\shared\bin\postproc-53.dll" "$(OutDir)"
-xcopy "$(ProjectDir)Dependencies\ffmpeg\x86\shared\bin\swresample-1.dll" "$(OutDir)"
-xcopy "$(ProjectDir)Dependencies\ffmpeg\x86\shared\bin\swscale-3.dll" "$(OutDir)"</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -118,7 +113,7 @@ xcopy "$(ProjectDir)Dependencies\ffmpeg\x86\shared\bin\swscale-3.dll" "$(OutDir)
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;XRFFFMPEG_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>Dependencies\ffmpeg\x64\dev\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AssemblerOutput>All</AssemblerOutput>
+      <AssemblerOutput>NoListing</AssemblerOutput>
       <AdditionalOptions>/LD %(AdditionalOptions)</AdditionalOptions>
       <EnablePREfast>false</EnablePREfast>
     </ClCompile>
@@ -128,19 +123,16 @@ xcopy "$(ProjectDir)Dependencies\ffmpeg\x86\shared\bin\swscale-3.dll" "$(OutDir)
       <AdditionalLibraryDirectories>Dependencies\ffmpeg\x64\dev\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(ProjectDir)Dependencies\ffmpeg\x64\shared\bin\avcodec-56.dll" "$(OutDir)"
-xcopy "$(ProjectDir)Dependencies\ffmpeg\x64\shared\bin\avdevice-56.dll" "$(OutDir)"
-xcopy "$(ProjectDir)Dependencies\ffmpeg\x64\shared\bin\avfilter-5.dll" "$(OutDir)"
-xcopy "$(ProjectDir)Dependencies\ffmpeg\x64\shared\bin\avformat-56.dll" "$(OutDir)"
-xcopy "$(ProjectDir)Dependencies\ffmpeg\x64\shared\bin\avutil-54.dll" "$(OutDir)"
-xcopy "$(ProjectDir)Dependencies\ffmpeg\x64\shared\bin\postproc-53.dll" "$(OutDir)"
-xcopy "$(ProjectDir)Dependencies\ffmpeg\x64\shared\bin\swresample-1.dll" "$(OutDir)"
-xcopy "$(ProjectDir)Dependencies\ffmpeg\x64\shared\bin\swscale-3.dll" "$(OutDir)"</Command>
-      <Message>Copy shared FFmpeg DLLs to output directory</Message>
+      <Command>xcopy "$(OutDir)Xrf.FFmpeg.dll" "$(SolutionDir)Cutting Room Floor\External Dependencies"</Command>
+      <Message>Import DLL back into main project</Message>
     </PostBuildEvent>
     <Manifest>
       <GenerateCatalogFiles>true</GenerateCatalogFiles>
     </Manifest>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
