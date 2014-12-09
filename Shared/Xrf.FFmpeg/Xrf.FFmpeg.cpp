@@ -36,6 +36,8 @@ namespace Xrf
 		buffer.append("\\");
 		buffer.append("frame" + std::to_string(iFrame) + ".ppm\0");
 
+		fprintf(stdout, "framepath: %s\n", buffer);
+
 		//Open file
 		FILE* pFile = fopen(buffer.c_str(), "wb");
 
@@ -58,6 +60,7 @@ namespace Xrf
 
 		// Close file
 		fclose(pFile);
+		fprintf(stdout, "done\n");
 	}
 
 #pragma endregion
@@ -89,7 +92,7 @@ namespace Xrf
 			fprintf(stdout, "av_register_all()\n");
 
 			//FAILS HERE WTF
-			AVFormatContext* pFormatCtx;
+			AVFormatContext* pFormatCtx = avformat_alloc_context();
 			if (avformat_open_input(&pFormatCtx, szPath, nullptr, nullptr) != 0)
 			{
 				fprintf(stderr, "libavformat: Couldn't open file '%s'!\n", szPath);
@@ -201,7 +204,6 @@ namespace Xrf
 				scaleHeight);
 			fprintf(stdout, "avpicture_fill\n");
 
-			// Read frames and save first five frames to disk
 			AVPacket packet;
 			int frameFinished;
 			while (av_read_frame(pFormatCtx, &packet) >= 0)
@@ -211,6 +213,7 @@ namespace Xrf
 				{
 					// Decode video frame
 					avcodec_decode_video2(pCodecCtx, pFrame, &frameFinished, &packet);
+					fprintf(stdout, "frame decode\n");
 
 					// Did we get a video frame?
 					if (frameFinished)
@@ -223,12 +226,11 @@ namespace Xrf
 							pCodecCtx->height,
 							pFrameRGB->data,
 							pFrameRGB->linesize);
+						fprintf(stdout, "rescale\n");
 
 						// Save the frame to disk
-						if (++i <= 5)
-						{
-							save_frame(pFrameRGB, i, sDestination);
-						}
+						save_frame(pFrameRGB, i, sDestination);
+						fprintf(stdout, "saved\n");
 					}
 				}
 
