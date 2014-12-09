@@ -23,37 +23,21 @@ namespace Xrf
 
 #pragma region Private Functions
 
-	/**
-	<summary>Joins a filename and a directory into one path.</summary>
-	<param name='*szPath'>The filename.</param>
-	<param name='*szDir'>The directory to join the filename to.</param>
-	*/
-	const char* JoinPaths(const char* szPath, const char* szDir)
-	{
-		// Cast to const char* to string becuase I'm bad at C++ and I don't know what I'm doing.
-		std::string buf(szDir);
-
-		// One day, this will support other platform's paths. This application WILL be cross-platform. Eventually...
-		buf.append("/");
-		buf.append(szPath);
-		return buf.c_str();
-	}
-
 	/** 
 		<summary>Saves an AVFrame object as a PPM image.</summary>
 		<param name='*pFrame'>Pointer to the AVFrame object to export as image.</param>
 		<param name='iFrame'>The index of the frame.</param>
 		<param name='*szDestination'>The directory path to write the frame to.</param>
 	*/
-	void SaveFrame(AVFrame* pFrame, int iFrame, const char* szDestination)
+	void save_frame(AVFrame* pFrame, int iFrame, const std::string& destination)
 	{
-		//Open file
-		char szFilename[32];
-		sprintf_s(szFilename, sizeof(szFilename), "frame%d.ppm", iFrame);
-		const char* szPath = JoinPaths(szFilename, szDestination);
+		//Create filename
+		std::string buffer = destination;
+		buffer.append("\\");
+		buffer.append("frame" + std::to_string(iFrame) + ".ppm\0");
 
-		FILE* pFile;
-		errno_t openError = fopen_s(&pFile, szPath, "wb");
+		//Open file
+		FILE* pFile = fopen(buffer.c_str(), "wb");
 
 		if (pFile == NULL)
 		{
@@ -86,8 +70,11 @@ namespace Xrf
 			<param name='*szDestination'>The directory to save files to.</param>
 			<param name='scaleFactor'>The frame scale factor.</param>
 			*/
-		int __stdcall ExtractAllFrames(const char* szPath, const char* szDestination, float scaleFactor)
+		int __stdcall extract_all_frames(const char* szPath, const char* szDestination, float scaleFactor)
 		{
+			std::string sDestination = szDestination;
+			fprintf(stdout, "cast destination to string\n");
+
 			// Check if scaleFactor is valid
 			if ((scaleFactor != 0.f) && 
 				(scaleFactor > 3.f))
@@ -95,16 +82,20 @@ namespace Xrf
 				fprintf(stderr, "Xrf: Scale factor '%f' out of bounds!\nMust be greater than 0, and less then or equal to 3.0.\n", scaleFactor);
 				return -1;
 			}
+			fprintf(stdout, "completed sf check, sf is %s", std::to_string(scaleFactor));
 
 			// Register all formats and codecs
 			av_register_all();
+			fprintf(stdout, "av_register_all()\n");
 
+			//FAILS HERE WTF
 			AVFormatContext* pFormatCtx;
 			if (avformat_open_input(&pFormatCtx, szPath, nullptr, nullptr) != 0)
 			{
 				fprintf(stderr, "libavformat: Couldn't open file '%s'!\n", szPath);
 				return -1;
 			}
+			fprintf(stdout, "avformat_open_input()\n");
 
 			// Retrieve stream information
 			if (avformat_find_stream_info(pFormatCtx, nullptr) < 0)
@@ -112,10 +103,12 @@ namespace Xrf
 				fprintf(stderr, "libavformat: Unable to find stream information!\n");
 				return -1;
 			}
+			fprintf(stdout, "avformat_find_stream_info()\n");
 
 			// Dump information about file onto standard error
 			av_dump_format(pFormatCtx, 0, szPath, 0);
 
+			fprintf(stdout, "attempting video stream search\n");
 			// Find the first video stream
 			size_t i;
 			int videoStream = -1;
@@ -132,13 +125,17 @@ namespace Xrf
 				fprintf(stderr, "libavformat: No video stream found!\n");
 				return -1;
 			}
+			fprintf(stdout, "stream found\n");
 
 			// Get a pointer to the codec context for the video stream
 			AVCodecContext* pCodecCtx = pFormatCtx->streams[videoStream]->codec;
+			fprintf(stdout, "codec context\n");
 
 			// Scale the frame
 			int scaleHeight = static_cast<int>(floor(pCodecCtx->height * scaleFactor));
 			int scaleWidth = static_cast<int>(floor(pCodecCtx->width * scaleFactor));
+
+			fprintf(stdout, "frame scaled: %s x %s\n", std::to_string(scaleWidth), std::to_string(scaleHeight));
 
 			//Check if frame sizes are valid (not 0, because that's dumb)
 			if (scaleHeight == 0 || scaleWidth == 0)
@@ -154,6 +151,7 @@ namespace Xrf
 				fprintf(stderr, "libavcodec: Unsupported codec!\n");
 				return -1; // Codec not found
 			}
+			fprintf(stdout, "there's that decoder!\n");
 
 			// Open codec
 			AVDictionary* optionsDict = nullptr;
@@ -162,11 +160,14 @@ namespace Xrf
 				fprintf(stderr, "libavcodec: Couldn't open codec '%s'!\n", pCodec->long_name);
 				return -1;
 			}
+			fprintf(stdout, "the chamber of codecs has been opend. enemies of the heir, beware.\n");
 
 			// Allocate video frame
 			AVFrame* pFrame = av_frame_alloc();
 			// Allocate an AVFrame structure
 			AVFrame* pFrameRGB = av_frame_alloc();
+
+			fprintf(stdout, "frame allocations\n");
 
 			if (pFrameRGB == NULL)
 			{
@@ -178,6 +179,8 @@ namespace Xrf
 			int numBytes = avpicture_get_size(PIX_FMT_RGB24, scaleWidth, scaleHeight);
 			uint8_t* buffer = static_cast <uint8_t *> (av_malloc(numBytes * sizeof(uint8_t)));
 
+			fprintf(stdout, "oh bby create dat buffer mmmmmmMMMMMM\n");
+
 			struct SwsContext* sws_ctx = sws_getContext(pCodecCtx->width,
 				pCodecCtx->height,
 				pCodecCtx->pix_fmt,
@@ -186,6 +189,7 @@ namespace Xrf
 				PIX_FMT_RGB24,
 				SWS_BILINEAR,
 				nullptr, nullptr, nullptr);
+			fprintf(stdout, "sws_ctx\n");
 
 			// Assign appropriate parts of buffer to image planes in pFrameRGB
 			// Note that pFrameRGB is an AVFrame, but AVFrame is a superset
@@ -195,6 +199,7 @@ namespace Xrf
 				PIX_FMT_RGB24,
 				scaleWidth,
 				scaleHeight);
+			fprintf(stdout, "avpicture_fill\n");
 
 			// Read frames and save first five frames to disk
 			AVPacket packet;
@@ -222,7 +227,7 @@ namespace Xrf
 						// Save the frame to disk
 						if (++i <= 5)
 						{
-							SaveFrame(pFrameRGB, i, szDestination);
+							save_frame(pFrameRGB, i, sDestination);
 						}
 					}
 				}
@@ -244,7 +249,7 @@ namespace Xrf
 			<summary>Calculates framerate from a video file.</summary>
 			<param name='*szPath'>The video file path.</param>
 			*/
-		double __stdcall GetFrameRate(const char* szPath)
+		double __stdcall get_frame_rate(const char* szPath)
 		{
 			return 0;
 		}
