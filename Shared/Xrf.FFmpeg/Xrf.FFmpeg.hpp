@@ -8,6 +8,8 @@ namespace Xrf
 		__declspec(dllexport) int __stdcall extract_all_frames(const char *szPath, const char *szDestination, float scaleFactor = 1.0);
 
 		// Gets the framerate from the specified video file.
-		__declspec(dllexport) double _stdcall get_frame_rate(const char *szPath);
+		__declspec(dllexport) double __stdcall get_frame_rate(const char *szPath);
+
+		__declspec(dllexport) void __stdcall test_string_cast(const char* cTest);
 	}
 }

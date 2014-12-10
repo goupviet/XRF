@@ -21,6 +21,29 @@ extern "C"
 namespace Xrf
 {
 
+#pragma region Test Functions
+
+	void second_string_test(const std::string& sTest)
+	{
+		std::string rebuffer = sTest;
+		fprintf(stdout, "rebuffer is %s\n", rebuffer);
+		rebuffer.append("\\");
+		rebuffer.append("test string" + std::to_string(69));
+		fprintf(stdout, "rebuffer is %s\n", rebuffer);
+		fprintf(stdout, "rebuffer.c_str() is %s\n", rebuffer.c_str());
+		fprintf(stdout, "string test complete.");
+	}
+
+	void __stdcall test_string_cast(const char* cTest)
+	{
+		fprintf(stdout, "cTest is %s\n", cTest);
+		std::string strTest = cTest;
+		fprintf(stdout, "After buffering to strTest: %s\nPassing to next function.\n", strTest);
+		second_string_test(strTest);
+	}
+
+#pragma endregion
+
 #pragma region Private Functions
 
 	/** 
