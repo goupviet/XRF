@@ -1,3 +1,5 @@
+![Cutting Room Floor [XRF]](https://dl.dropboxusercontent.com/u/5764194/xrf_logo_latest.png)
+
 Cutting Room Floor [XRF]
 =========
 
